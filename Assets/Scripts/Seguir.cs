@@ -20,7 +20,7 @@ namespace UCM.IAV.Movimiento
         /// Obtiene la dirección
         /// </summary>
         /// <returns></returns>
-        public override Direccion GetDireccion()
+        public override Direccion GetDirection()
         {
             // Si fuese un comportamiento de dirección dinámico en el que buscásemos alcanzar cierta velocidad en el agente, se tendría en cuenta la velocidad actual del agente y se aplicaría sólo la aceleración necesaria
             // Vector3 deltaV = targetVelocity - body.velocity;

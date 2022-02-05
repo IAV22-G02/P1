@@ -22,7 +22,7 @@ namespace UCM.IAV.Movimiento
         /// Obtiene la dirección
         /// </summary>
         /// <returns></returns>
-        public override Direccion GetDireccion()
+        public override Direccion GetDirection()
         {
             Direccion direccion = new Direccion();
             direccion.lineal.x = Input.GetAxis("Horizontal");

@@ -48,19 +48,21 @@ namespace UCM.IAV.Movimiento
         /// </summary>
         public virtual void Update()
         {
+            if (agente == null) return;
+
             if (agente.combinarPorPeso)
-                agente.SetDireccion(GetDireccion(), peso);
+                agente.SetDirection(GetDirection(), peso);
             else if (agente.combinarPorPrioridad)
-                agente.SetDireccion(GetDireccion(), prioridad);
+                agente.SetDirection(GetDirection(), prioridad);
             else
-                agente.SetDireccion(GetDireccion());
+                agente.SetDirection(GetDirection());
         }
 
         /// <summary>
         /// Devuelve la direccion calculada
         /// </summary>
         /// <returns></returns>
-        public virtual Direccion GetDireccion()
+        public virtual Direccion GetDirection()
         {
             return new Direccion();
         }

@@ -132,12 +132,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 78873673}
-  - component: {fileID: 78873672}
-  - component: {fileID: 78873671}
   - component: {fileID: 78873677}
   - component: {fileID: 78873676}
   - component: {fileID: 78873675}
   - component: {fileID: 78873674}
+  - component: {fileID: 78873671}
+  - component: {fileID: 78873672}
   m_Layer: 0
   m_Name: PerroAsustado
   m_TagString: Untagged
@@ -378,12 +378,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 635709776}
-  - component: {fileID: 635709775}
-  - component: {fileID: 635709774}
   - component: {fileID: 635709780}
   - component: {fileID: 635709779}
   - component: {fileID: 635709778}
   - component: {fileID: 635709777}
+  - component: {fileID: 635709774}
+  - component: {fileID: 635709775}
   m_Layer: 0
   m_Name: Perro
   m_TagString: Untagged
@@ -960,9 +960,9 @@ GameObject:
   - component: {fileID: 1021455445}
   - component: {fileID: 1021455444}
   - component: {fileID: 1021455443}
+  - component: {fileID: 1021455442}
   - component: {fileID: 1021455440}
   - component: {fileID: 1021455446}
-  - component: {fileID: 1021455442}
   m_Layer: 0
   m_Name: Flautista
   m_TagString: Untagged

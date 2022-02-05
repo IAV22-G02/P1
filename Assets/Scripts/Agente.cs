@@ -231,7 +231,7 @@ namespace UCM.IAV.Movimiento {
         /// <summary>
         /// Establece la dirección tal cual
         /// </summary>
-        public void SetDireccion(Direccion direccion)
+        public void SetDirection(Direccion direccion)
         {
             this.direccion = direccion;
         }
@@ -241,7 +241,7 @@ namespace UCM.IAV.Movimiento {
         /// </summary>
         /// <param name="direccion"></param>
         /// <param name="peso"></param>
-        public void SetDireccion(Direccion direccion, float peso)
+        public void SetDirection(Direccion direccion, float peso)
         {
             this.direccion.lineal += (peso * direccion.lineal);
             this.direccion.angular += (peso * direccion.angular);
@@ -252,7 +252,7 @@ namespace UCM.IAV.Movimiento {
         /// </summary>
         /// <param name="direccion"></param>
         /// <param name="prioridad"></param>
-        public void SetDireccion(Direccion direccion, int prioridad)
+        public void SetDirection(Direccion direccion, int prioridad)
         {
             if (!grupos.ContainsKey(prioridad))
             {
@@ -289,15 +289,15 @@ namespace UCM.IAV.Movimiento {
             return direccion;
         }
         /// <summary>
-        /// Calculates el Vector3 dado un cierto valor de orientación
+        /// Calcula el Vector3 dado un cierto angulo
         /// </summary>
-        /// <param name="orientacion"></param>
+        /// <param name="angulo"></param>
         /// <returns></returns>
-        public Vector3 OriToVec(float orientacion)
+        public Vector3 OriToVec(float angulo)
         {
             Vector3 vector = Vector3.zero;
-            vector.x = Mathf.Sin(orientacion * Mathf.Deg2Rad) * 1.0f; //  * 1.0f se añade para asegurar que el tipo es float
-            vector.z = Mathf.Cos(orientacion * Mathf.Deg2Rad) * 1.0f; //  * 1.0f se añade para asegurar que el tipo es float
+            vector.x = Mathf.Sin(angulo * Mathf.Deg2Rad) * 1.0f; //  * 1.0f se añade para asegurar que el tipo es float
+            vector.z = Mathf.Cos(angulo * Mathf.Deg2Rad) * 1.0f; //  * 1.0f se añade para asegurar que el tipo es float
             return vector.normalized;
         }
     }
