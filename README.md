@@ -17,32 +17,48 @@ Rats: Wander
 
 When u play flute: rats follow flautist in an ordered way
 
-Variable en el GameManager
+Componente ComportamientoRata
 
-DistanciaALaQueSeAsustaElPerro
+Componente Wander
 
-if(pos.modulo <= distAsustado && outside)gameManager.ratas++;
-else gameManager.ratas--;
+Componente ComportamientoRata
 
-if(asustado) huir();
-else seguir();
+en ComportamientoRata
 
-RatasCerca >= NumeroRatasCerca
 
-Collider en el perro, para detectar cuando entran
+void update(){
+    tocando la flauta = space.down;
 
-void huir(){
-    float min;
-    GameObject masCercana;
-
-    for(int i=0; i < ratas.size();i++){
-        if(ratas[i].distance <= thresolh) 
+    if(tocando la flauta){
+        wander.active = false;
+        seguir.active = true;
+    }
+    else if(!tocandolaflauta){
+        wander.active = true;
+        seguir.active = false;
     }
 
+    //Podemos hacer esto para ahorrar codigo pero es probablemente terrible
+
+    wander.active = !tocando la flauta;
+    seguir.active = tocando la flauta;
 }
 
-void onEnter(){
-    if(ratas.size() == 0) min = newRata();
+Add campo de vision al perro
+
+Componente detectRats al campo de vision
+
+en detectRats
+
+void ontriggerEnter(GameObject rat){
+    if(rat.getComponent<comporamientoRata>() != nullptr){
+        numRatas++:
+
+        if(numRatas >= ratasParaAsustarse){
+            seguir.active = false;
+            huir.active = true;
+        }
+    }
 }
 
-Activar y desactivar los componentes Wander() y Seguir()
+Componente Wander para las ratas
