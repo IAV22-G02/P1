@@ -83,10 +83,10 @@ MonoBehaviour:
   umbralPrioridad: 0.2
   velocidadMax: 15
   rotacionMax: 5
-  aceleracionMax: 12
+  aceleracionMax: 10
   aceleracionAngularMax: 5
   velocidad: {x: 0, y: 0, z: 0}
-  rotacion: 0
+  rotacion: 0.2
   orientacion: 0
 --- !u!114 &-9215801215274345019
 MonoBehaviour:

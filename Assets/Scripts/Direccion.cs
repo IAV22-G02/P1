@@ -23,6 +23,7 @@ namespace UCM.IAV.Movimiento
     {
         public float angular;
         public Vector3 lineal;
+        public float orientation = 0;
         public Direccion()
         {
             angular = 0.0f;

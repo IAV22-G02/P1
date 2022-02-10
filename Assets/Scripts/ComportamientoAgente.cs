@@ -35,14 +35,17 @@ namespace UCM.IAV.Movimiento
         /// </summary>
         protected Agente agente;
 
+        private Wander wanderCmp;
+
         /// <summary>
         /// Al despertar, establecer el agente que harÅEuso del comportamiento
         /// </summary>
         public virtual void Awake()
         {
             agente = gameObject.GetComponent<Agente>();
+            wanderCmp = gameObject.GetComponent<Wander>();
 
-            objetivo = GameObject.FindGameObjectWithTag("Player");
+            //objetivo = GameObject.FindGameObjectWithTag("Player");
         }
 
         public virtual void Start() {
@@ -51,8 +54,11 @@ namespace UCM.IAV.Movimiento
         /// <summary>
         /// En cada tick, establecer la direcciÛn que corresponde al agente, con peso o prioridad si se est·n usando
         /// </summary>
-        public virtual void Update()
-        {
+        public virtual void Update(){
+            asignDirection();
+        }
+
+        private void asignDirection(){
             if (agente == null) return;
 
             if (agente.combinarPorPeso)
@@ -101,6 +107,14 @@ namespace UCM.IAV.Movimiento
             vector.x = Mathf.Sin(orientacion * Mathf.Deg2Rad) * 1.0f;
             vector.z = Mathf.Cos(orientacion * Mathf.Deg2Rad) * 1.0f;
             return vector.normalized;
+        }
+
+        void OnCollisionStay(Collision collision)
+        {
+            if(wanderCmp != null && collision.gameObject.GetComponent<BoxCollider>() != null){
+                Debug.Log("Changed");
+                asignDirection();
+            }
         }
     }
 }

@@ -23,16 +23,16 @@ namespace UCM.IAV.Movimiento
 
         public override Direccion GetDirection(){
            //Timer to know when to change direction
-            if (timeSinceLastChange >= timeToChange){
+            if (timeSinceLastChange >= timeToChange && agente != null){
                 Direccion direccion = new Direccion();
-                direccion.angular = Random.Range(0, 361);
-
+                direccion.orientation = Random.Range(0, 361);
                 //While to check the rat doesnt change direction too abruptly
-                while (direccion.angular < actualAng + angularThreshold && direccion.angular > actualAng - angularThreshold) 
-                    direccion.angular = Random.Range(0, 361);
+                while (direccion.orientation < actualAng + angularThreshold && direccion.orientation > actualAng - angularThreshold) 
+                    direccion.orientation = Random.Range(0, 361);
 
+                actualAng = direccion.orientation;
                 //Giving direction in function of the orientation of the rat
-                direccion.lineal = OriToVec(direccion.angular);
+                direccion.lineal = OriToVec(direccion.orientation);
                 direccion.lineal.Normalize();
                 direccion.lineal *= agente.aceleracionMax;
 

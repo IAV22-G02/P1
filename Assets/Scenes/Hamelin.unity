@@ -1409,6 +1409,11 @@ PrefabInstance:
       propertyPath: objetivo
       value: 
       objectReference: {fileID: 1021455439}
+    - target: {fileID: 683413241963932409, guid: 5175d5736886518439bf9a2956a122b4,
+        type: 3}
+      propertyPath: angularThreshold
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 5090829970161626106, guid: 5175d5736886518439bf9a2956a122b4,
         type: 3}
       propertyPath: m_Name
@@ -1468,6 +1473,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7414348020050774981, guid: 5175d5736886518439bf9a2956a122b4,
+        type: 3}
+      propertyPath: aceleracionMax
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7883104079899583881, guid: 5175d5736886518439bf9a2956a122b4,
         type: 3}

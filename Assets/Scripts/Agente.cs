@@ -86,13 +86,13 @@ namespace UCM.IAV.Movimiento {
         /// <summary>
         /// Componente de cuerpo r˙Ñido (si la tiene el agente)
         /// </summary>
-        [Tooltip("Cuerpo r˙Ñido.")]
+        [Tooltip("Cuerpo rÌgido.")]
         private Rigidbody cuerpoRigido;
 
         /// <summary>
         /// Al comienzo, se inicialian algunas variables
         /// </summary>
-        void Start()
+        public void Start()
         {
             // Descomentar estas l˙ãeas si queremos ignorar los valores iniciales de velocidad y rotaciÛn
             //velocidad = Vector3.zero; 
@@ -120,14 +120,16 @@ namespace UCM.IAV.Movimiento {
             cuerpoRigido.AddForce(direccion.lineal, ForceMode.Acceleration);
 
             // Limitamos la aceleraciÛn angular al m·ximo que acepta este agente (aunque normalmente vendrÅEya limitada)
-            if (direccion.angular > aceleracionAngularMax)
-                direccion.angular = aceleracionAngularMax;
+            //if (direccion.angular > aceleracionAngularMax)
+            //    direccion.angular = aceleracionAngularMax;
 
             // Rotamos el objeto siempre sobre su eje Y (hacia arriba), asumiendo que el agente estÅEsobre un plano y quiere mirar a un lado o a otro
             // La opciÛn por defecto ser˙} usar ForceMode.Force, pero eso implicar˙} que el comportamiento de direcciÛn tuviese en cuenta la masa a la hora de calcular la aceleraciÛn que se pide
-            cuerpoRigido.AddTorque(transform.up * direccion.angular, ForceMode.Acceleration);  
 
-            /* El tema de la orientaciÛn, descomentarlo si queremos sobreescribir toda la cuestiÛn de la velocidad angular
+            Vector3 orientationVector = OriToVec(direccion.orientation);
+            cuerpoRigido.rotation = Quaternion.LookRotation(orientationVector, Vector3.up);
+
+            /* //El tema de la orientaciÛn, descomentarlo si queremos sobreescribir toda la cuestiÛn de la velocidad angular
             orientacion += rotacion / Time.deltaTime; // En lugar de * he puesto / para asÅEcalcular la aceleraciÛn, que es lo que debe ir aquÅE
             // Necesitamos "constreÒir" inteligentemente la orientaciÛn al rango (0, 360)
             if (orientacion < 0.0f)
@@ -159,9 +161,11 @@ namespace UCM.IAV.Movimiento {
         /// </summary>
         public virtual void Update()
         {
+            //KINEMATIC
             if (cuerpoRigido != null)
                 return; // El movimiento serÅEdin·mico, controlado por la f˙êica y FixedUpdate
 
+            DebugTest(2);
             // Limito la velocidad lineal antes de empezar
             if (velocidad.magnitude > velocidadMax)
                 velocidad= velocidad.normalized * velocidadMax;
@@ -198,9 +202,12 @@ namespace UCM.IAV.Movimiento {
                 grupos.Clear();
             }
 
+
+            //KINEMATIC
             if (cuerpoRigido != null) {
                 return; // El movimiento serÅEdin·mico, controlado por la f˙êica y FixedUpdate
             }
+            DebugTest(1);
 
             // Limitamos la aceleraciÛn al m·ximo que acepta este agente (aunque normalmente vendrÅEya limitada)
             if (direccion.lineal.sqrMagnitude > aceleracionMax)
@@ -299,6 +306,10 @@ namespace UCM.IAV.Movimiento {
             vector.x = Mathf.Sin(angulo * Mathf.Deg2Rad) * 1.0f; //  * 1.0f se aÒade para asegurar que el tipo es float
             vector.z = Mathf.Cos(angulo * Mathf.Deg2Rad) * 1.0f; //  * 1.0f se aÒade para asegurar que el tipo es float
             return vector.normalized;
+        }
+
+        private void DebugTest(int i){
+            Debug.Log("Test:" + i);
         }
     }
 }
