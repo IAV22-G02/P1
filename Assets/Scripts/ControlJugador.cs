@@ -18,6 +18,13 @@ namespace UCM.IAV.Movimiento
     /// </summary>
     public class ControlJugador: ComportamientoAgente
     {
+        public override void Update()
+        {
+            base.Update();
+
+            if (Input.GetKeyDown(KeyCode.Space))
+                SensorialManager.instance.PlayFlauta(true);//Tocar esto para que sea un toggle
+        }
         /// <summary>
         /// Obtiene la dirección
         /// </summary>
