@@ -18,12 +18,15 @@ namespace UCM.IAV.Movimiento
     /// </summary>
     public class ControlJugador: ComportamientoAgente
     {
+        bool isPlaying = false;
         public override void Update()
         {
             base.Update();
 
-            if (Input.GetKeyDown(KeyCode.Space))
-                SensorialManager.instance.PlayFlauta(true);//Tocar esto para que sea un toggle
+            if (Input.GetKeyDown(KeyCode.Space)) {
+                isPlaying = !isPlaying;
+                SensorialManager.instance.PlayFlauta(isPlaying);//Tocar esto para que sea un toggle
+            }
         }
         /// <summary>
         /// Obtiene la dirección
@@ -37,7 +40,7 @@ namespace UCM.IAV.Movimiento
             direccion.lineal.Normalize();
             direccion.lineal *= agente.aceleracionMax;
 
-            // Podríamos meter una rotación automática en la dirección del movimiento, si quisiéramos
+            // Podrú}mos meter una rotación automática en la dirección del movimiento, si quisiéramos
 
             return direccion;
         }

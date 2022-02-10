@@ -36,11 +36,13 @@ namespace UCM.IAV.Movimiento
         protected Agente agente;
 
         /// <summary>
-        /// Al despertar, establecer el agente que har· uso del comportamiento
+        /// Al despertar, establecer el agente que harÅEuso del comportamiento
         /// </summary>
         public virtual void Awake()
         {
             agente = gameObject.GetComponent<Agente>();
+
+            objetivo = GameObject.FindGameObjectWithTag("Player");
         }
 
         public virtual void Start() {

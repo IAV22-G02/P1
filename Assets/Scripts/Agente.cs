@@ -84,9 +84,9 @@ namespace UCM.IAV.Movimiento {
         private Dictionary<int, List<Direccion>> grupos;
 
         /// <summary>
-        /// Componente de cuerpo rígido (si la tiene el agente)
+        /// Componente de cuerpo rú„ido (si la tiene el agente)
         /// </summary>
-        [Tooltip("Cuerpo rígido.")]
+        [Tooltip("Cuerpo rú„ido.")]
         private Rigidbody cuerpoRigido;
 
         /// <summary>
@@ -94,7 +94,7 @@ namespace UCM.IAV.Movimiento {
         /// </summary>
         void Start()
         {
-            // Descomentar estas líneas si queremos ignorar los valores iniciales de velocidad y rotación
+            // Descomentar estas lú‹eas si queremos ignorar los valores iniciales de velocidad y rotación
             //velocidad = Vector3.zero; 
             //rotacion = 0.0f
             direccion = new Direccion();
@@ -104,31 +104,31 @@ namespace UCM.IAV.Movimiento {
         }
 
         /// <summary>
-        /// En cada tick fijo, si hay movimiento dinámico, uso el simulador físico aplicando las fuerzas que corresponda para moverlo.
-        /// Un cuerpo rígido se puede mover con movePosition, cambiando la velocity o aplicando fuerzas, que es lo habitual y que permite respetar otras fuerzas que estén actuando sobre él a la vez.
+        /// En cada tick fijo, si hay movimiento dinámico, uso el simulador fúico aplicando las fuerzas que corresponda para moverlo.
+        /// Un cuerpo rú„ido se puede mover con movePosition, cambiando la velocity o aplicando fuerzas, que es lo habitual y que permite respetar otras fuerzas que estén actuando sobre él a la vez.
         /// </summary>
         public virtual void FixedUpdate()
         {
             if (cuerpoRigido == null)
-                return; // El movimiento será cinemático, fotograma a fotograma con Update
+                return; // El movimiento serEcinemático, fotograma a fotograma con Update
 
-            // Limitamos la aceleración al máximo que acepta este agente (aunque normalmente vendrá ya limitada)
+            // Limitamos la aceleración al máximo que acepta este agente (aunque normalmente vendrEya limitada)
             if (direccion.lineal.sqrMagnitude > aceleracionMax)
                 direccion.lineal = direccion.lineal.normalized * aceleracionMax; 
 
-            // La opción por defecto sería usar ForceMode.Force, pero eso implicaría que el comportamiento de dirección tuviese en cuenta la masa a la hora de calcular la aceleración que se pide
+            // La opción por defecto serú} usar ForceMode.Force, pero eso implicarú} que el comportamiento de dirección tuviese en cuenta la masa a la hora de calcular la aceleración que se pide
             cuerpoRigido.AddForce(direccion.lineal, ForceMode.Acceleration);
 
-            // Limitamos la aceleración angular al máximo que acepta este agente (aunque normalmente vendrá ya limitada)
+            // Limitamos la aceleración angular al máximo que acepta este agente (aunque normalmente vendrEya limitada)
             if (direccion.angular > aceleracionAngularMax)
                 direccion.angular = aceleracionAngularMax;
 
-            // Rotamos el objeto siempre sobre su eje Y (hacia arriba), asumiendo que el agente está sobre un plano y quiere mirar a un lado o a otro
-            // La opción por defecto sería usar ForceMode.Force, pero eso implicaría que el comportamiento de dirección tuviese en cuenta la masa a la hora de calcular la aceleración que se pide
+            // Rotamos el objeto siempre sobre su eje Y (hacia arriba), asumiendo que el agente estEsobre un plano y quiere mirar a un lado o a otro
+            // La opción por defecto serú} usar ForceMode.Force, pero eso implicarú} que el comportamiento de dirección tuviese en cuenta la masa a la hora de calcular la aceleración que se pide
             cuerpoRigido.AddTorque(transform.up * direccion.angular, ForceMode.Acceleration);  
 
             /* El tema de la orientación, descomentarlo si queremos sobreescribir toda la cuestión de la velocidad angular
-            orientacion += rotacion / Time.deltaTime; // En lugar de * he puesto / para así calcular la aceleración, que es lo que debe ir aquí
+            orientacion += rotacion / Time.deltaTime; // En lugar de * he puesto / para asEcalcular la aceleración, que es lo que debe ir aquE
             // Necesitamos "constreñir" inteligentemente la orientación al rango (0, 360)
             if (orientacion < 0.0f)
                 orientacion += 360.0f;
@@ -139,7 +139,7 @@ namespace UCM.IAV.Movimiento {
             cuerpoRigido.rotation = Quaternion.LookRotation(orientationVector, Vector3.up);
             */
 
-            // Aunque también se controlen los máximos en el LateUpdate, entiendo que conviene también hacerlo aquí, en FixedUpdate, que puede llegar a ejecutarse más veces
+            // Aunque también se controlen los máximos en el LateUpdate, entiendo que conviene también hacerlo aquE en FixedUpdate, que puede llegar a ejecutarse más veces
 
             // Limito la velocidad lineal al terminar 
             if (cuerpoRigido.velocity.magnitude > velocidadMax)
@@ -154,13 +154,13 @@ namespace UCM.IAV.Movimiento {
 
         /// <summary>
         /// En cada tick, hace lo básico del movimiento cinemático del agente
-        /// Un objeto que no atiende a físicas se mueve a base de trasladar su transformada.
+        /// Un objeto que no atiende a fúicas se mueve a base de trasladar su transformada.
         /// Al no haber Freeze Rotation, ni rozamiento ni nada... seguramente vaya todo mucho más rápido en cinemático que en dinámico
         /// </summary>
         public virtual void Update()
         {
             if (cuerpoRigido != null)
-                return; // El movimiento será dinámico, controlado por la física y FixedUpdate
+                return; // El movimiento serEdinámico, controlado por la fúica y FixedUpdate
 
             // Limito la velocidad lineal antes de empezar
             if (velocidad.magnitude > velocidadMax)
@@ -188,7 +188,7 @@ namespace UCM.IAV.Movimiento {
         }
 
         /// <summary>
-        /// En cada parte tardía del tick, hace tareas de corrección numérica 
+        /// En cada parte tardú} del tick, hace tareas de corrección numérica 
         /// </summary>
         public virtual void LateUpdate()
         {
@@ -199,18 +199,18 @@ namespace UCM.IAV.Movimiento {
             }
 
             if (cuerpoRigido != null) {
-                return; // El movimiento será dinámico, controlado por la física y FixedUpdate
+                return; // El movimiento serEdinámico, controlado por la fúica y FixedUpdate
             }
 
-            // Limitamos la aceleración al máximo que acepta este agente (aunque normalmente vendrá ya limitada)
+            // Limitamos la aceleración al máximo que acepta este agente (aunque normalmente vendrEya limitada)
             if (direccion.lineal.sqrMagnitude > aceleracionMax)
                 direccion.lineal = direccion.lineal.normalized * aceleracionMax;
 
-            // Limitamos la aceleración angular al máximo que acepta este agente (aunque normalmente vendrá ya limitada)
+            // Limitamos la aceleración angular al máximo que acepta este agente (aunque normalmente vendrEya limitada)
             if (direccion.angular > aceleracionAngularMax)
                 direccion.angular = aceleracionAngularMax;
 
-            // Aquí se calcula la próxima velocidad y rotación en función de las aceleraciones  
+            // AquEse calcula la próxima velocidad y rotación en función de las aceleraciones  
             velocidad += direccion.lineal * Time.deltaTime;
             rotacion += direccion.angular * Time.deltaTime;
 
@@ -220,10 +220,10 @@ namespace UCM.IAV.Movimiento {
             if (direccion.lineal.sqrMagnitude == 0.0f) 
                 velocidad = Vector3.zero; 
 
-            /// En cada parte tardía del tick, encarar el agente (al menos para el avatar).... si es que queremos hacer este encaramiento
-            transform.LookAt(transform.position + velocidad);
+            /// En cada parte tardú} del tick, encarar el agente (al menos para el avatar).... si es que queremos hacer este encaramiento
+            transform.LookAt(transform.position + OriToVec(orientacion));
 
-            // Se deja la dirección vacía para el próximo fotograma
+            // Se deja la dirección vacú} para el próximo fotograma
             direccion = new Direccion();
         }
 

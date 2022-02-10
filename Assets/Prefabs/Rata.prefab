@@ -83,7 +83,7 @@ MonoBehaviour:
   umbralPrioridad: 0.2
   velocidadMax: 15
   rotacionMax: 5
-  aceleracionMax: 8
+  aceleracionMax: 12
   aceleracionAngularMax: 5
   velocidad: {x: 0, y: 0, z: 0}
   rotacion: 0
@@ -124,7 +124,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5090829970161626106}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 82e92ec8f463fd84cac92ffd22bc97c9, type: 3}
   m_Name: 
