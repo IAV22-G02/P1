@@ -8,44 +8,59 @@ namespace UCM.IAV.Movimiento
     {
         //If you change one you have to change the other uWu
         [SerializeField]
-        float timeToChange = 1.2f;
+        float timeToChange = 0.4f;
+
         float timeSinceLastChange;
 
         float actualAng = 0;
         [Range(0f,360f)]
         public float angularThreshold;
 
-        Direccion actualDir;
+        Direccion auxDir;
+
+        Direccion direction;
+
+        bool add;
+        bool change;
+
+        float auxFactor = 0.5f;
 
         public override void Start(){
-            timeSinceLastChange = timeToChange;
+            timeSinceLastChange = 0;
+            change = false;
+            direction = new Direccion();
+            //Starts off with random ori
+            direction.orientation = Random.Range(0, 361);
         }
 
         public override Direccion GetDirection(){
-           //Timer to know when to change direction
-            if (timeSinceLastChange >= timeToChange && agente != null){
-                Direccion direccion = new Direccion();
-                direccion.orientation = Random.Range(0, 361);
-                //While to check the rat doesnt change direction too abruptly
-                while (direccion.orientation < actualAng + angularThreshold && direccion.orientation > actualAng - angularThreshold) 
-                    direccion.orientation = Random.Range(0, 361);
+            //Decidir si sumar o no
+            int changeProb = Random.Range(0, 100);
+            if(changeProb <= 2 && !change){
+                change = true;
+                int addProb = Random.Range(0, 11);
+                //Decidir si sumar o restar
+                if (addProb <= 5) auxFactor = auxFactor * -1;
 
-                actualAng = direccion.orientation;
-                //Giving direction in function of the orientation of the rat
-                direccion.lineal = OriToVec(direccion.orientation);
-                direccion.lineal.Normalize();
-                direccion.lineal *= agente.aceleracionMax;
-
+                timeToChange = Random.Range(0.4f, 0.7f);
                 timeSinceLastChange = 0;
-                actualDir = direccion;
-
-                //Radom to make the movement more erratic
-                timeToChange = Random.Range(1, 1.7f);
             }
-            else
-                timeSinceLastChange += Time.deltaTime;
 
-            return actualDir;
+            //Sumar
+            if (change && timeSinceLastChange <= timeToChange){
+                timeSinceLastChange += Time.deltaTime;
+                direction.orientation += auxFactor;
+            }
+            else change = false;
+       
+            //Dar direccion
+            direction.lineal = OriToVec(direction.orientation);
+            direction.lineal.Normalize();
+
+            if(agente != null)
+                direction.lineal *= agente.aceleracionMax;
+
+            return direction;
         }
     }
 }
