@@ -35,7 +35,7 @@ namespace UCM.IAV.Movimiento
 
         public override Direccion GetDirection(){
             //Decidir si sumar o no
-            int changeProb = Random.Range(0, 100);
+            int changeProb = Random.Range(0, 2000);
             if(changeProb <= 2 && !change){
                 change = true;
                 int addProb = Random.Range(0, 11);
