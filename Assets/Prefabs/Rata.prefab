@@ -115,7 +115,6 @@ MonoBehaviour:
   peso: 1
   prioridad: 1
   objetivo: {fileID: 0}
-  timeToChange: 0.5
   angularThreshold: 60
 --- !u!114 &-7714548680650964775
 MonoBehaviour:

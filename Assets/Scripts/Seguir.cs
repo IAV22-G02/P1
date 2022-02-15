@@ -19,7 +19,7 @@ namespace UCM.IAV.Movimiento
     /// </summary>
     public class Seguir : ComportamientoAgente{
         public override void Start(){
-            if(objetivo == null) objetivo = SensorialManager.instance.getTarget();
+            objetivo = SensorialManager.instance.getTarget();
         }
 
         /// <summary>
