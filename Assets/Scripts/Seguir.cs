@@ -19,6 +19,13 @@ namespace UCM.IAV.Movimiento
     /// </summary>
     public class Seguir : ComportamientoAgente{
 
+        [SerializeField]
+        float threshold;
+
+        [SerializeField]
+        float decayCoefficient;
+
+
 
         List<GameObject> targets;
         Rigidbody rb;
@@ -28,6 +35,8 @@ namespace UCM.IAV.Movimiento
         public float radiusFactorSeparation = 4;
 
         float radius;
+
+
 
         public override void Start(){
             sphColl = GetComponent<SphereCollider>();
@@ -52,6 +61,53 @@ namespace UCM.IAV.Movimiento
 
             direccion.orientation = Vector3.SignedAngle(Vector3.forward, new Vector3(direccion.lineal.x, 0.0f, direccion.lineal.z), Vector3.up);
 
+            direccion.lineal += Separate();
+            
+            direccion.lineal *= agente.aceleracionMax;
+
+            // Podríamos meter una rotación automática en la dirección del movimiento, si quisiéramos
+            return direccion;
+        }
+
+        public Vector3 Separate(){
+            Vector3 direccion = new Vector3();
+
+            float minDistance = -1f;
+            float strength = 1;
+
+            // Para cada entidad
+            foreach (GameObject rat in targets) {
+                // Comprobar que t está cerca
+                Vector3 dirOpossite = transform.position - rat.transform.position;
+
+                float distance = dirOpossite.magnitude;
+
+                // Si entra en el área
+                if (distance < threshold)
+                {
+                    // Añadir aceleración
+                    dirOpossite.Normalize();
+                    direccion += dirOpossite;
+
+                    // Cogemos la fuerza en base al target más cercano
+                    if (distance < minDistance || minDistance == -1)
+                    {
+                        // Fuerza de repulsión
+                        strength = Mathf.Min(decayCoefficient / (distance * distance), agente.aceleracionMax);
+                        minDistance = distance;
+                    }
+                }
+            }
+
+            // Aplicamos la dirección y fuerza al vector
+            direccion.Normalize();
+            direccion *= strength;
+
+            return direccion;
+        }
+
+        public Direccion AvoidCollision(ref Direccion direccion)
+        {
             //AVOID COLLISION
             float shortestTime = Mathf.Infinity;
 
@@ -61,12 +117,10 @@ namespace UCM.IAV.Movimiento
             Vector3 firstRelativePos = Vector3.zero;
             Vector3 firstRelativeVel = Vector3.zero;
             Vector3 relativePos;
-            
 
-            foreach(GameObject target in targets){
 
-                if (target == this.gameObject)
-                    continue;
+            foreach (GameObject target in targets){
+                if (target == gameObject) continue;
 
                 Rigidbody targetRb = target.GetComponent<Rigidbody>();
 
@@ -80,10 +134,11 @@ namespace UCM.IAV.Movimiento
                 float distance = relativePos.magnitude;
 
                 float minSeparation = distance - relativeSpeed * timeToCollision;
-                if(minSeparation > radiusFactorSeparation * radius)
-                    continue;   
+                if (minSeparation > radiusFactorSeparation * radius)
+                    continue;
 
-                if (timeToCollision > 0 && timeToCollision < shortestTime){
+                if (timeToCollision > 0 && timeToCollision < shortestTime)
+                {
                     shortestTime = timeToCollision;
                     firstTarget = target;
                     firstMinSeparation = minSeparation;
@@ -92,21 +147,19 @@ namespace UCM.IAV.Movimiento
                     firstRelativeVel = relativeVel;
                 }
             }
-            
-            if (firstTarget == null){
+
+            if (firstTarget == null) {
                 direccion.lineal *= agente.aceleracionMax;
                 return direccion;
             }
 
             if (firstMinSeparation <= 0 || firstDistance < radiusFactorSeparation * radius)
-                relativePos = firstTarget.transform.position - gameObject.transform.position;
+                relativePos = gameObject.transform.position - firstTarget.transform.position;
             else relativePos = firstRelativePos + firstRelativeVel * shortestTime;
 
             relativePos.Normalize();
 
-            direccion.lineal += relativePos * agente.aceleracionMax;
-
-            // Podríamos meter una rotación automática en la dirección del movimiento, si quisiéramos
+            direccion.lineal = relativePos;
             return direccion;
         }
     }
