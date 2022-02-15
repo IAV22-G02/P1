@@ -19,6 +19,12 @@ namespace UCM.IAV.Movimiento
     public class ControlJugador: ComportamientoAgente
     {
         bool isPlaying = false;
+
+
+        public override void Start()
+        {
+            SensorialManager.instance.setTarget(this.gameObject);   
+        }
         public override void Update()
         {
             base.Update();

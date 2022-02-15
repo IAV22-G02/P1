@@ -16,6 +16,15 @@ namespace UCM.IAV.Movimiento
     /// </summary>
     public class Seguir : ComportamientoAgente
     {
+
+        public  Vector3 iniDirect;
+        public float cosa;
+
+        public override void Start()
+        {
+            objetivo = SensorialManager.instance.getTarget();
+            iniDirect = Vector3.forward;
+        }
         /// <summary>
         /// Obtiene la dirección
         /// </summary>
@@ -25,9 +34,9 @@ namespace UCM.IAV.Movimiento
             // Si fuese un comportamiento de dirección dinámico en el que buscásemos alcanzar cierta velocidad en el agente, se tendría en cuenta la velocidad actual del agente y se aplicaría sólo la aceleración necesaria
             // Vector3 deltaV = targetVelocity - body.velocity;
             // Vector3 accel = deltaV / Time.deltaTime;
-
             Direccion direccion = new Direccion();
             direccion.lineal = objetivo.transform.position - transform.position;
+            direccion.orientation = Vector3.Angle(iniDirect, direccion.lineal);
             direccion.lineal.Normalize();
             direccion.lineal *= agente.aceleracionMax;
 

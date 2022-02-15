@@ -9,7 +9,10 @@ namespace UCM.IAV.Movimiento
     {
         public static SensorialManager instance;
 
+        GameObject target;
         bool isFlauta = false;
+
+
         private void Awake()
         {
             //Cosa que viene en los apuntes para que el gamemanager no se destruya entre escenas
@@ -32,6 +35,16 @@ namespace UCM.IAV.Movimiento
         private void Update()
         {
 
+        }
+
+        public GameObject getTarget()
+        {
+            return target;
+        }
+
+        public void setTarget(GameObject t)
+        {
+            target = t;
         }
 
         public void PlayFlauta(bool isPlaying)
