@@ -2,29 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace UCM.IAV.Movimiento
-{
-    public class Wander : ComportamientoAgente
-    {
-        //If you change one you have to change the other uWu
-        [SerializeField]
-        float timeToChange = 0.4f;
-
-        float timeSinceLastChange;
-
-        float actualAng = 0;
+namespace UCM.IAV.Movimiento {
+    public class Wander : ComportamientoAgente{
         [Range(0f,360f)]
         public float angularThreshold;
 
-        Direccion auxDir;
-
+        float timeToChange = 0.4f;
+        float auxFactor = 0.7f;
+        float timeSinceLastChange;
         Direccion direction;
-
-        bool add;
         bool change;
-
-        float auxFactor = 0.5f;
-
+        
         public override void Start(){
             timeSinceLastChange = 0;
             change = false;

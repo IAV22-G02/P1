@@ -44,8 +44,6 @@ namespace UCM.IAV.Movimiento
         {
             agente = gameObject.GetComponent<Agente>();
             wanderCmp = gameObject.GetComponent<Wander>();
-
-            //objetivo = GameObject.FindGameObjectWithTag("Player");
         }
 
         public virtual void Start() {

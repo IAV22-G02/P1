@@ -21,8 +21,9 @@ namespace UCM.IAV.Movimiento
         bool isPlaying = false;
 
 
-        public override void Start()
-        {
+        AudioSource audio;
+        public override void Start(){
+            audio = GetComponent<AudioSource>();
             SensorialManager.instance.setTarget(this.gameObject);   
         }
         public override void Update()
@@ -30,6 +31,10 @@ namespace UCM.IAV.Movimiento
             base.Update();
 
             if (Input.GetKeyDown(KeyCode.Space)) {
+                if (!audio.isPlaying)
+                    audio.Play();
+                else audio.Pause();
+                
                 isPlaying = !isPlaying;
                 SensorialManager.instance.PlayFlauta(isPlaying);//Tocar esto para que sea un toggle
             }
