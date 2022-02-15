@@ -19,7 +19,7 @@ namespace UCM.IAV.Movimiento
         float slowRadius;
 
         //Time over which to achieve target speed
-        float timeToTarget = 0.1;
+        float timeToTarget = 0.1f;
 
         public override void Start()
         {
@@ -72,7 +72,7 @@ namespace UCM.IAV.Movimiento
                 float distance = relativePos.magnitude;
 
                 float minSeparation = distance - relativeSpeed * timeToCollision;
-                if (minSeparation > radiusFactorSeparation * radius)
+                if (minSeparation > targetRadius)
                     continue;
 
                 if (timeToCollision > 0 && timeToCollision < shortestTime)
@@ -92,7 +92,7 @@ namespace UCM.IAV.Movimiento
                 return direccion;
             }
 
-            if (firstMinSeparation <= 0 || firstDistance < radiusFactorSeparation * radius)
+            if (firstMinSeparation <= 0 || firstDistance < targetRadius)
                 relativePos = firstTarget.transform.position - gameObject.transform.position;
             else relativePos = firstRelativePos + firstRelativeVel * shortestTime;
 
