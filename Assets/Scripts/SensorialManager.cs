@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using UnityEngine;
 
 
@@ -9,12 +10,16 @@ namespace UCM.IAV.Movimiento
     {
         public static SensorialManager instance;
 
+        List<GameObject> rats;
+
         GameObject target;
         bool isFlauta = false;
 
 
+
         private void Awake()
         {
+            rats = new List<GameObject>();
             //Cosa que viene en los apuntes para que el gamemanager no se destruya entre escenas
             if (instance == null)
             {
@@ -54,6 +59,10 @@ namespace UCM.IAV.Movimiento
         public bool getFlautaTravesera()
         {
             return isFlauta;
+        }
+
+        public ref List<GameObject> getRats(){
+            return ref rats;
         }
     }
 }

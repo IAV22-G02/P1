@@ -114,5 +114,14 @@ namespace UCM.IAV.Movimiento
                 asignDirection();
             }
         }
+
+        public virtual void onCollisionEnter(Collision collision){
+
+        }
+
+        public virtual void onCollisionExit(Collision collision)
+        {
+
+        }
     }
 }

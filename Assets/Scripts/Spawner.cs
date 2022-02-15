@@ -2,36 +2,48 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Spawner : MonoBehaviour
+namespace UCM.IAV.Movimiento
 {
-    // Start is called before the first frame update
+    public class Spawner : MonoBehaviour
+    {
+        // Start is called before the first frame update
 
+        [SerializeField]
+        int numMaxRats = 0;
 
-    [SerializeField]
-    int numMaxRats = 0;
+        [SerializeField]
+        GameObject objectToSpawn;
 
-    [SerializeField]
-    GameObject objectToSpawn;
+        [Header("Probabilidad (%)")]
+        [Range(0, 100)]
+        public int probability;
 
-    [Header("Probabilidad (%)")]
-    [Range(0, 100)]
-    public int probability;
+        uint currNumRats = 0;
+        int maxNum = 2001;
 
-    uint currNumRats = 0;
-    int maxNum = 2001;
+        List<GameObject> rats;
 
-    int prob;
-    void Start(){
-        prob = (probability / 100) * maxNum;
-    }
+        int prob;
+        void Start()
+        {
 
-    // Update is called once per frame
-    void Update() {
-        int auxNum = Random.Range(0, maxNum);
-        if (auxNum <= prob && currNumRats < numMaxRats){
-            GameObject rat = Instantiate(objectToSpawn, gameObject.transform.position, Quaternion.identity);
-            rat.transform.parent = gameObject.transform;
-            currNumRats++;
+            rats = SensorialManager.instance.getRats();
+
+            prob = (probability / 100) * maxNum;
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+            int auxNum = Random.Range(0, maxNum);
+            if (auxNum <= prob && currNumRats < numMaxRats)
+            {
+                GameObject rat = Instantiate(objectToSpawn, gameObject.transform.position, Quaternion.identity);
+                rat.transform.parent = gameObject.transform;
+
+                rats.Add(rat);
+                currNumRats++;
+            }
         }
     }
 }
