@@ -18,8 +18,6 @@ namespace UCM.IAV.Movimiento
     /// </summary>
     public class ControlJugador: ComportamientoAgente
     {
-        bool isPlaying = false;
-
 
         AudioSource audio;
         public override void Start(){
@@ -30,13 +28,17 @@ namespace UCM.IAV.Movimiento
         {
             base.Update();
 
-            if (Input.GetKeyDown(KeyCode.Space)) {
+            if (Input.GetKey(KeyCode.Space))
+            {
                 if (!audio.isPlaying)
                     audio.Play();
                 else audio.Pause();
-                
-                isPlaying = !isPlaying;
-                SensorialManager.instance.PlayFlauta(isPlaying);//Tocar esto para que sea un toggle
+
+                SensorialManager.instance.PlayFlauta(true);
+            }
+            else
+            {
+                SensorialManager.instance.PlayFlauta(false);
             }
         }
         /// <summary>

@@ -86,7 +86,7 @@ namespace UCM.IAV.Movimiento {
         /// <summary>
         /// Componente de cuerpo rú„ido (si la tiene el agente)
         /// </summary>
-        [Tooltip("Cuerpo rígido.")]
+        [Tooltip("Cuerpo rú„ido.")]
         private Rigidbody cuerpoRigido;
 
         /// <summary>
