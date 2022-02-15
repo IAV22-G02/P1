@@ -132,7 +132,7 @@ MonoBehaviour:
   prioridad: 1
   objetivo: {fileID: 2597503888602334142, guid: b5198eecf032c344197bb270df421af6,
     type: 3}
-  radiusFactorSeparation: 52.08
+  radiusFactorSeparation: 3
 --- !u!1 &5500188600157307727
 GameObject:
   m_ObjectHideFlags: 0

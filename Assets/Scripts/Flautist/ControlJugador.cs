@@ -31,14 +31,11 @@ namespace UCM.IAV.Movimiento
 
             if (Input.GetKey(KeyCode.Space))
             {
-                if (!audio.isPlaying)
-                    audio.Play();
-                else audio.Pause();
-
+                if (!audio.isPlaying)audio.Play();
                 SensorialManager.instance.PlayFlauta(true);
             }
-            else
-            {
+            else { 
+                audio.Pause();
                 SensorialManager.instance.PlayFlauta(false);
             }
         }
