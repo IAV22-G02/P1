@@ -66,10 +66,11 @@ namespace UCM.IAV.Movimiento
         }
 
         public Vector3 Separate(){
+            Debug.Log("a");
             Vector3 direccion = new Vector3();
 
             float minDistance = -1f;
-            float strength = 1;
+            float strength = 100;
 
             // Para cada entidad
             foreach (GameObject rat in targets) {

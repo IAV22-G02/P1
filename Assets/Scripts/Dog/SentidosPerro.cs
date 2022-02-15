@@ -4,11 +4,13 @@ using UnityEngine;
 
 namespace UCM.IAV.Movimiento
 {
-    public class SentidosPerro : MonoBehaviour
+    public class SentidosPerro : Seguir
     {
         public float ratThreshold;
         int ratsInRange;
-        
+        //List<GameObject> ratsOfFear;
+        bool huyendo = false;
+
         void OnTriggerEnter(Collider c)
         {
             if (c.gameObject.GetComponent<RataSenses>() != null)
@@ -17,9 +19,11 @@ namespace UCM.IAV.Movimiento
 
                 if (ratsInRange >= ratThreshold)
                 {
-                    this.gameObject.GetComponent<Seguir>().enabled = false;
-                    //? this.gameObject.GetComponent<Huir>().enabled = true;
+                    this.transform.parent.GetComponent<Seguir>().enabled = false;
+                    huyendo = true;
                 }
+
+                //ratsOfFear.Add(c.gameObject);
             }
         }
         void OnTriggerExit(Collider c)
@@ -30,10 +34,19 @@ namespace UCM.IAV.Movimiento
 
                 if (ratsInRange < ratThreshold)
                 {
-                    this.gameObject.GetComponent<Seguir>().enabled = true;
-                    //? this.gameObject.GetComponent<Huir>().enabled = false;
+                    this.transform.parent.GetComponent<Seguir>().enabled = true;
+                    huyendo = false;
                 }
+                //ratsOfFear.Add(c.gameObject);
             }
+        }
+        public override Direccion GetDirection()
+        {
+            Direccion direccion = new Direccion();
+            direccion.lineal = -(Separate());
+            direccion.lineal.Normalize();
+            direccion.lineal *= agente.aceleracionMax;
+            return direccion;
         }
     }
 }

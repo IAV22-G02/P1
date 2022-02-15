@@ -110,7 +110,6 @@ namespace UCM.IAV.Movimiento
         void OnCollisionStay(Collision collision)
         {
             if(wanderCmp != null && collision.gameObject.GetComponent<BoxCollider>() != null){
-                Debug.Log("Changed");
                 asignDirection();
             }
         }
