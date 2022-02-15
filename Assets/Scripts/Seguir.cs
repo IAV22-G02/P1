@@ -25,18 +25,14 @@ namespace UCM.IAV.Movimiento
         [SerializeField]
         float decayCoefficient;
 
-
-
         List<GameObject> targets;
         Rigidbody rb;
 
         SphereCollider sphColl;
 
-        public float radiusFactorSeparation = 4;
+        float radiusFactorSeparation = 4;
 
         float radius;
-
-
 
         public override void Start(){
             sphColl = GetComponent<SphereCollider>();
