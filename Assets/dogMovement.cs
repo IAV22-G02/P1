@@ -111,7 +111,7 @@ namespace UCM.IAV.Movimiento
         private void checkHitRayCast(ref Vector3 directionAcc, Vector3 directionRay, float distance)
         {
             Vector3 from = transform.position;
-            from.y = from.y + 0.5f;
+            from.y += 1.5f;
             RaycastHit hit;
             if (Physics.Raycast(from, directionRay, out hit, distance, layer))
             {
