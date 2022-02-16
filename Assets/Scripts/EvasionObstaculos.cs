@@ -81,7 +81,7 @@ namespace UCM.IAV.Movimiento
             if(!isHit)
                 return null;
 
-            objectivePos = collisionPos + collisionNormal * avoidDistance;
+            //objectivePos = collisionPos + collisionNormal * avoidDistance;
             return base.GetDirection();
         }
 
