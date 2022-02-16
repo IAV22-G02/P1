@@ -6,6 +6,8 @@ public class ObstacleGenerator : MonoBehaviour
 {
     // Start is called before the first frame update
 
+    public GameObject[] obstacles;
+
     [SerializeField]
     int maxX;
     [SerializeField]
@@ -20,7 +22,6 @@ public class ObstacleGenerator : MonoBehaviour
 
     public float scale = 20.0f;
 
-    public LayerMask layer;
     void Start(){
         //GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
         GenerateObstacle();
@@ -38,14 +39,10 @@ public class ObstacleGenerator : MonoBehaviour
                 float prob = CalculateHeight(i, j);
 
                 if(prob  < probability){
-                    GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                    Vector3 pos = cube.transform.position;
-                    pos.y = 0.5f;
-                    pos.x = i;
-                    pos.z = j;
-                    cube.transform.position = pos;
-                    cube.transform.parent = this.gameObject.transform;
-                    cube.layer = LayerMask.NameToLayer("Obstaculo");
+                    int g = Random.Range(0, obstacles.Length);
+                    GameObject o = Instantiate(obstacles[g], new Vector3(i, 0.5f, j), Quaternion.identity);
+                    o.transform.parent = this.gameObject.transform;
+                    o.layer = LayerMask.NameToLayer("Obstaculo");
                 }
             }
         }
