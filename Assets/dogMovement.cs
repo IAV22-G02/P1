@@ -10,13 +10,19 @@ namespace UCM.IAV.Movimiento
 
         [SerializeField]
         float decayCoefficient;
+            
+        [SerializeField]
+        float slowRadius;
+
+        float radius;
 
         List<GameObject> targets;
         Rigidbody rb;
 
         SphereCollider sphColl;
 
-        float radius;
+
+        float timeToTarget = 0.01f;
 
         public override void Awake(){
             base.Awake();
@@ -35,7 +41,7 @@ namespace UCM.IAV.Movimiento
         }
 
         /// <summary>
-        /// Obtiene la direcciÛn
+        /// Obtiene la direcciÔøΩn
         /// </summary>
         /// <returns></returns>
         public override Direccion GetDirection()
@@ -45,19 +51,33 @@ namespace UCM.IAV.Movimiento
             if (!this.enabled) return direccion;
 
             //GET MAIN DIRECTION
+            float acceleration = agente.aceleracionMax;
+
             direccion.lineal = objetivo.transform.position - transform.position;
             direccion.lineal.Normalize();
 
             direccion.orientation = Vector3.SignedAngle(Vector3.forward, new Vector3(direccion.lineal.x, 0.0f, direccion.lineal.z), Vector3.up);
 
-            if(targets.Count > 0){
+            direccion.lineal += Arrive(ref acceleration);
+            if (targets.Count > 0){
                 direccion.lineal = Separate();
             }
 
-            direccion.lineal *= agente.aceleracionMax;
+            direccion.lineal *= acceleration;
 
-            // Podr˙}mos meter una rotaciÛn autom·tica en la direcciÛn del movimiento, si quisiÈramos
+            // PodrÔøΩ}mos meter una rotaciÔøΩn automÔøΩtica en la direcciÔøΩn del movimiento, si quisiÔøΩramos
             return direccion;
+        }
+
+        public Vector3 Arrive(ref float acceleration){
+            Vector3 dir = transform.position - objetivo.transform.position;
+            float distance = dir.magnitude;
+
+            if (distance > slowRadius)
+                dir = Vector3.zero;
+            else acceleration = 0;
+
+            return dir;
         }
 
         public Vector3 Separate()
@@ -70,29 +90,23 @@ namespace UCM.IAV.Movimiento
             // Para cada entidad
             foreach (GameObject rat in targets)
             {
-                // Comprobar que t estÅEcerca
                 Vector3 dirOpossite = transform.position - rat.transform.position;
 
                 float distance = dirOpossite.magnitude;
 
-                // Si entra en el ·rea
                 if (distance < threshold)
                 {
-                    // AÒadir aceleraciÛn
                     dirOpossite.Normalize();
                     direccion += dirOpossite;
 
-                    // Cogemos la fuerza en base al target m·s cercano
                     if (distance < minDistance || minDistance == -1)
                     {
-                        // Fuerza de repulsiÛn
                         strength = Mathf.Min(decayCoefficient / (distance * distance), agente.aceleracionMax);
                         minDistance = distance;
                     }
                 }
             }
 
-            // Aplicamos la direcciÛn y fuerza al vector
             direccion.Normalize();
             direccion *= strength;
 

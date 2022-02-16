@@ -33,8 +33,8 @@ namespace UCM.IAV.Movimiento
         // Update is called once per frame
         void Update() {
             int auxNum = Random.Range(0, maxNum);
-            if (auxNum <= prob && currNumRats < numMaxRats)
-            {
+
+            if (auxNum <= prob && currNumRats < numMaxRats) {
                 GameObject rat = Instantiate(objectToSpawn, gameObject.transform.position, Quaternion.identity);
                 rat.transform.parent = gameObject.transform;
 
