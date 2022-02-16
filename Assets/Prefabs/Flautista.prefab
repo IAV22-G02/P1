@@ -101,7 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   peso: 1
   prioridad: 1
-  objetivo: {fileID: 0}
+  objetivo: {fileID: 2597503888602334142}
 --- !u!82 &-8720040567227339227
 AudioSource:
   m_ObjectHideFlags: 0

@@ -143,7 +143,7 @@ MonoBehaviour:
   layer:
     serializedVersion: 2
     m_Bits: 64
-  avoidDistance: 4
+  avoidDistance: 2
   lookAhead: 3
   lookSide: 2
 --- !u!1001 &8353852462041216977

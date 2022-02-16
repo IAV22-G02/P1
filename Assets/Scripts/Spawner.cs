@@ -37,7 +37,7 @@ namespace UCM.IAV.Movimiento
         }
 
         // Update is called once per frame
-        void Update() {
+        void FixedUpdate() {
             int auxNum = Random.Range(0, maxNum);
 
             if (auxNum <= prob && currNumRats < numMaxRats) {
