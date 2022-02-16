@@ -126,3 +126,149 @@ class KinematicSeek:
         result.rotation = 0
         return result;
 ```
+
+### CollisionAvoidance
+```sh
+class CollisionAvoidance:
+ character: Kinematic
+ maxAcceleration: float
+
+# A list of potential targets.
+ targets: Kinematic[]
+# The collision radius of a character (assuming all characters
+# have the same radius here).
+ radius: float
+
+ function getSteering() -> SteeringOutput:
+	# 1. Find the target that’s closest to collision
+	# Store the first collision time.
+	shortestTime: float = infinity
+
+	# Store the target that collides then, and other data that we
+	# will need and can avoid recalculating.
+	firstTarget: Kinematic = null
+	firstMinSeparation: float
+	firstDistance: float
+	firstRelativePos: Vector
+	firstRelativeVel: Vector
+
+	# Loop through each target.
+	for target in targets:
+		# Calculate the time to collision.
+		relativePos = target.position - character.position
+		relativeVel = target.velocity - character.velocity
+		relativeSpeed = relativeVel.length()
+		timeToCollision = dotProduct(relativePos, relativeVel) /
+		(relativeSpeed * relativeSpeed)
+
+		# Check if it is going to be a collision at all.
+		distance = relativePos.length()
+		minSeparation = distance - relativeSpeed * timeToCollision
+		if minSeparation > 2 * radius:
+			continue
+
+		# Check if it is the shortest.
+		if timeToCollision > 0 and timeToCollision < shortestTime:
+			# Store the time, target and other data.
+			shortestTime = timeToCollision
+			firstTarget = target
+			firstMinSeparation = minSeparation
+			firstDistance = distance
+			firstRelativePos = relativePos
+			firstRelativeVel = relativeVel
+
+ # 2. Calculate the steering
+ # If we have no target, then exit.
+ if not firstTarget:
+ 	return null
+
+ # If we’re going to hit exactly, or if we’re already
+ # colliding, then do the steering based on current position.
+ if firstMinSeparation <= 0 or firstDistance < 2 * radius:
+ 		relativePos = firstTarget.position - character.position
+
+ # Otherwise calculate the future relative position.
+ else:
+ 	relativePos = firstRelativePos + firstRelativeVel * shortestTime
+
+ # Avoid the target.
+ relativePos.normalize()
+
+ result = new SteeringOutput()
+ result.linear = relativePos * maxAcceleration
+ result.anguar = 0
+ 
+ return result
+```
+
+### Separate
+```sh
+class Separation:
+ character: Kinematic
+ maxAcceleration: float
+
+ # A list of potential targets.
+ targets: Kinematic[]
+
+ # The threshold to take action.
+ threshold: float
+
+ # The constant coefficient of decay for the inverse square law.
+ decayCoefficient: float
+
+ function getSteering() -> SteeringOutput:
+ result = new SteeringOutput()
+
+ # Loop through each target.
+ for target in targets:
+	# Check if the target is close.
+	direction = target.position - character.position
+	distance = direction.length()
+
+	if distance < threshold:
+	# Calculate the strength of repulsion
+	# (here using the inverse square law).
+		strength = min(
+			decayCoefficient / (distance * distance),
+			maxAcceleration)
+
+	# Add the acceleration.
+	direction.normalize()
+	result.linear += strength * direction
+
+ return result
+```
+
+### Wall Avoidance
+```sh
+class ObstacleAvoidance extends Seek:
+ detector: CollisionDetector
+
+ # The minimum distance to a wall (i.e., how far to avoid
+ # collision) should be greater than the radius of the character.
+ avoidDistance: float
+
+ # The distance to look ahead for a collision
+ # (i.e., the length of the collision ray).
+ lookahead: float
+
+ # ... Other data is derived from the superclass ...
+
+ function getSteering():
+	# 1. Calculate the target to delegate to seek
+	# Calculate the collision ray vector.
+	ray = character.velocity
+	ray.normalize()
+	ray *= lookahead
+
+ # Find the collision.
+ collision = detector.getCollision(character.position, ray)
+
+ # If have no collision, do nothing.
+ if not collision:
+ 	return null
+
+ # 2. Otherwise create a target and delegate to seek.
+ target = collision.position + collision.normal * avoidDistance
+ return Seek.getSteering()
+```
