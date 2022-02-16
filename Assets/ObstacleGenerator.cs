@@ -8,30 +8,21 @@ public class ObstacleGenerator : MonoBehaviour
 
     public GameObject[] obstacles;
 
-    [SerializeField]
-    int maxX;
-    [SerializeField]
-    int minX;
-    [SerializeField]
-    int maxZ;
-    [SerializeField]
-    int minZ;
+    public GameObject terrain;
+
+    int minX, minZ, maxX, maxZ;
 
     [Range(0.0f, 1.0f)]
     public float probability;
 
-    public float scale = 20.0f;
-
     void Start(){
-        //GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        minX = (int)terrain.GetComponent<MeshCollider>().bounds.min.x;
+        minZ = (int)terrain.GetComponent<MeshCollider>().bounds.min.z;
+        maxX = (int)terrain.GetComponent<MeshCollider>().bounds.max.x;
+        maxZ = (int)terrain.GetComponent<MeshCollider>().bounds.max.z;
         GenerateObstacle();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     void GenerateObstacle(){
         for (int i = (int) minX; i < maxX; i++){
@@ -40,21 +31,18 @@ public class ObstacleGenerator : MonoBehaviour
 
                 if(prob  < probability){
                     int g = Random.Range(0, obstacles.Length);
-                    GameObject o = Instantiate(obstacles[g], new Vector3(i, 0.25f, j), Quaternion.identity);
+                    GameObject o = Instantiate(obstacles[g], new Vector3(i, 0, j), Quaternion.identity);
                     o.transform.parent = this.gameObject.transform;
-                    o.layer = LayerMask.NameToLayer("Obstaculo");
+                    o.layer = LayerMask.NameToLayer("Obstaculo"); 
                 }
             }
         }
     }
 
     float CalculateHeight(int x, int y) {
-        float xCoord = (float)x / (maxX - minX);
 
-        xCoord += Random.Range(0.0f, 0.05f);
-        float yCoord = (float)y / (maxZ - minZ);
-        yCoord += Random.Range(0.0f, 0.05f);
 
-        return Mathf.PerlinNoise(xCoord, yCoord);
+
+        return Mathf.PerlinNoise(x * 0.03f, y *0.03f);
     }
 }

@@ -65,10 +65,10 @@ namespace UCM.IAV.Movimiento
             float acceleration = agente.aceleracionMax;
 
             direccion.lineal = objetivo.transform.position - transform.position;
+            direccion.lineal.Normalize();
 
             direccion.orientation = Vector3.SignedAngle(Vector3.forward, new Vector3(direccion.lineal.x, 0.0f, direccion.lineal.z), Vector3.up);
             direccion.lineal += WallAvoidance();
-            direccion.lineal.Normalize();
 
             direccion.lineal += Arrive(ref acceleration);
             if (targets.Count > 0){
