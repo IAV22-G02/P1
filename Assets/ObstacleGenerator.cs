@@ -19,6 +19,8 @@ public class ObstacleGenerator : MonoBehaviour
     public float probability;
 
     public float scale = 20.0f;
+
+    public LayerMask layer;
     void Start(){
         //GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
         GenerateObstacle();
@@ -43,6 +45,7 @@ public class ObstacleGenerator : MonoBehaviour
                     pos.z = j;
                     cube.transform.position = pos;
                     cube.transform.parent = this.gameObject.transform;
+                    cube.layer = LayerMask.NameToLayer("Obstaculo");
                 }
             }
         }

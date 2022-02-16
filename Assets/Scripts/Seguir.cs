@@ -35,6 +35,18 @@ namespace UCM.IAV.Movimiento
 
         float radius;
 
+        #region WallAvoidance 
+        //Capa de Colision
+        public LayerMask layer;
+        //Distancia minima a un muro(debe ser mayor al radio del gameobject
+        [SerializeField]
+        float avoidDistance;
+
+        //Distancia de vision del raycast
+        public float lookAhead = 3.0f;
+        public float lookSide = 2.0f;
+        #endregion
+
         public override void Start()
         {
             sphColl = GetComponent<SphereCollider>();
@@ -59,6 +71,7 @@ namespace UCM.IAV.Movimiento
             direccion.lineal.Normalize();
 
             direccion.orientation = Vector3.SignedAngle(Vector3.forward, new Vector3(direccion.lineal.x, 0.0f, direccion.lineal.z), Vector3.up);
+            direccion.lineal += WallAvoidance();
 
             direccion.lineal += Separate();
 
@@ -105,6 +118,39 @@ namespace UCM.IAV.Movimiento
             direccion *= strength;
 
             return direccion;
+        }
+
+        public Vector3 WallAvoidance()
+        {
+            Vector3 direccion = new Vector3();
+            //FORWARD
+            Vector3 directionRay = transform.forward;
+            checkHitRayCast(ref direccion, directionRay, lookAhead);
+            //RIGHT
+            directionRay = transform.forward + (transform.right);
+            checkHitRayCast(ref direccion, directionRay, lookSide);
+            //LEFT
+            directionRay = transform.forward + (transform.right * -1);
+            checkHitRayCast(ref direccion, directionRay, lookSide);
+
+            return direccion;
+        }
+
+        private void checkHitRayCast(ref Vector3 directionAcc, Vector3 directionRay, float size)
+        {
+            Vector3 from = transform.position;
+            from.y = from.y + 0.5f;
+            Debug.DrawRay(from, directionRay * size, Color.green);
+            RaycastHit hit1;
+            if (Physics.Raycast(from, directionRay, out hit1, size))
+            {
+                if (hit1.collider.gameObject.GetComponent<BoxCollider>() != null)
+                {
+                    Vector3 dir = hit1.point + hit1.normal * avoidDistance;
+                    Debug.DrawRay(hit1.point, dir, Color.red);
+                    directionAcc += dir;
+                }
+            }
         }
 
         public Direccion AvoidCollision(ref Direccion direccion)

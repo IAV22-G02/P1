@@ -134,7 +134,12 @@ MonoBehaviour:
     type: 3}
   threshold: 1.5
   decayCoefficient: 63.43
-  radiusFactorSeparation: 5
+  layer:
+    serializedVersion: 2
+    m_Bits: 64
+  avoidDistance: 1
+  lookAhead: 3
+  lookSide: 2
 --- !u!1 &5500188600157307727
 GameObject:
   m_ObjectHideFlags: 0

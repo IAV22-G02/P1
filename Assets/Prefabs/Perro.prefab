@@ -212,3 +212,10 @@ MonoBehaviour:
   objetivo: {fileID: 0}
   threshold: 5
   decayCoefficient: 90
+  slowRadius: 0
+  layer:
+    serializedVersion: 2
+    m_Bits: 64
+  avoidDistance: 0.8
+  lookAhead: 3
+  lookSide: 2
