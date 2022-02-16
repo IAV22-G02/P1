@@ -1,6 +1,9 @@
 # Documentación Práctica 1
 ___________________________________________________________________________
 
+
+# Video de pruebas [aquí](https://youtu.be/ztK_XIu5nJk)
+
 ## Autores
 
 ##### Grupo 02
@@ -16,8 +19,6 @@ La práctica consiste en implementar un prototipo de una simulación de la leyen
 Este prototipo tratará de que un jugador controle el movimiento del flautista por un escenario mientras que el perro y las ratas son controlados por agentes inteligentes previamente creados por código.
 El perro siempre seguirá al jugador a donde quiera que él vaya. Además, las ratas del escenario seguirán al jugador siempre y cuando este toque la flauta, en caso contrario, dejarán de seguirle y seguirán un movimiento propio, aparte, cuando haya suficientes ratas cerca del perro provocará que huya de ellas.
 
-
-
 ## Descripción Punto de Partida
 
 La escena de Unity consta con una jaula en la que se encuentran tres objetos, todos siendo esferas. El agente flautista (jugador), el agente que huye (perro), y el agente que persigue (ratas). 
@@ -27,8 +28,6 @@ Combinar por Peso: asigna una dirección dada, multiplicada por un factor que mo
 Combinar por Prioridad: asigna una dirección dentro de un lista que se identifica por un factor de prioridad. Existen varias listas dentro de un mapa, cada una con distintas prioridades. Se selecciona una dirección en función de un umbral de prioridad.
 Dirección Absoluta: la dirección es simplemente determinada por el input del jugador.
 La selección de esta dirección se realiza en el componente Agente , el cual lo tienen todos los agentes. Este también se encarga de aplicar la dirección al objeto, manteniendo una rotación máxima (que no debe superar el rango de 0º < <= α <= 360º), una aceleración y velocidad máxima.
-
-
 
 ## Descripción de la solución
 
