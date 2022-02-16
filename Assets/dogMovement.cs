@@ -99,27 +99,35 @@ namespace UCM.IAV.Movimiento
             Vector3 directionRay = transform.forward;
             checkHitRayCast(ref direccion, directionRay, lookAhead);
             //RIGHT
-            directionRay = transform.forward + (transform.right);
+            directionRay = transform.forward*2 + (transform.right);
             checkHitRayCast(ref direccion, directionRay, lookSide);
             //LEFT
-            directionRay = transform.forward + (transform.right * -1);
+            directionRay = transform.forward*2 - transform.right;
             checkHitRayCast(ref direccion, directionRay, lookSide);
 
             return direccion;
         }
 
-        private void checkHitRayCast(ref Vector3 directionAcc, Vector3 directionRay, float size){
+        private void checkHitRayCast(ref Vector3 directionAcc, Vector3 directionRay, float distance)
+        {
             Vector3 from = transform.position;
-            from.y = from.y + 0.5f;
-            Debug.DrawRay(from , directionRay * size, Color.green);
-            RaycastHit hit1;
-            if (Physics.Raycast(from, directionRay, out hit1, size)) {
-                if(hit1.collider.gameObject.GetComponent<BoxCollider>() != null) {
-                    Vector3 dir = hit1.point + hit1.normal * avoidDistance;
-                    Debug.DrawRay(hit1.point, dir, Color.red);
-                    directionAcc += dir;
-                }
+            RaycastHit hit;
+            if (Physics.Raycast(from, directionRay, out hit, distance, layer))
+            {
+                // Find the line from the gun to the point that was clicked.
+                Vector3 incomingVec = hit.point - transform.position;
+                // Use the point's normal to calculate the reflection vector.
+                Vector3 reflectVec = Vector3.Reflect(incomingVec, hit.normal);
+
+                // Draw lines to show the incoming "beam" and the reflection.
+                Debug.DrawLine(transform.position, hit.point, Color.red);
+                Debug.DrawRay(hit.point, reflectVec, Color.blue);
+
+                Vector3 dir = hit.point + hit.normal * avoidDistance;
+                directionAcc += dir;
             }
+            else
+                Debug.DrawRay(transform.position, directionRay * distance, Color.green);
         }
 
         public Vector3 Separate()
