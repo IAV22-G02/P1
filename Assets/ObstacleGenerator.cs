@@ -40,7 +40,7 @@ public class ObstacleGenerator : MonoBehaviour
 
                 if(prob  < probability){
                     int g = Random.Range(0, obstacles.Length);
-                    GameObject o = Instantiate(obstacles[g], new Vector3(i, 0.5f, j), Quaternion.identity);
+                    GameObject o = Instantiate(obstacles[g], new Vector3(i, 0.25f, j), Quaternion.identity);
                     o.transform.parent = this.gameObject.transform;
                     o.layer = LayerMask.NameToLayer("Obstaculo");
                 }
