@@ -116,6 +116,12 @@ MonoBehaviour:
   prioridad: 1
   objetivo: {fileID: 0}
   angularThreshold: 60
+  layer:
+    serializedVersion: 2
+    m_Bits: 64
+  probToChange: 35.4
+  avoidDistance: 4
+  lookAhead: 8
 --- !u!114 &1968807012220412624
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -137,7 +143,7 @@ MonoBehaviour:
   layer:
     serializedVersion: 2
     m_Bits: 64
-  avoidDistance: 1
+  avoidDistance: 4
   lookAhead: 3
   lookSide: 2
 --- !u!1001 &8353852462041216977

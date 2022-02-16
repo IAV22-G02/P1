@@ -18,8 +18,8 @@ namespace UCM.IAV.Movimiento
         [Range(0, 100)]
         public int probability;
 
-        uint currNumRats = 0;
-        int maxNum = 2001;
+        static uint currNumRats = 0;
+        int maxNum = 1001;
 
         List<GameObject> rats;
 

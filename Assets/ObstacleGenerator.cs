@@ -26,7 +26,7 @@ public class ObstacleGenerator : MonoBehaviour
 
     void GenerateObstacle(){
         for (int i = (int) minX; i < maxX; i++){
-            for (int j = minZ; j < maxZ; j++){
+            for (int j = (int) minZ; j < maxZ; j++){
                 float prob = CalculateHeight(i, j);
 
                 if(prob  < probability){
@@ -40,9 +40,6 @@ public class ObstacleGenerator : MonoBehaviour
     }
 
     float CalculateHeight(int x, int y) {
-
-
-
         return Mathf.PerlinNoise(x * 0.03f, y *0.03f);
     }
 }

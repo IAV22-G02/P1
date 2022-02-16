@@ -661,7 +661,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 1021455447}
   smoothSpeed: 0.125
-  offset: {x: 0, y: 15, z: -24}
+  offset: {x: 0, y: 30, z: -48}
 --- !u!1 &1021455439 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2597503888602334142, guid: b5198eecf032c344197bb270df421af6,
@@ -780,7 +780,7 @@ GameObject:
   - component: {fileID: 1417116310}
   - component: {fileID: 1417116311}
   m_Layer: 0
-  m_Name: RatSpawner
+  m_Name: Rat_Spawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -812,10 +812,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b185edf13a5fed498a6b5b2791164f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numMaxRats: 20
+  numMaxRats: 30
   objectToSpawn: {fileID: 5261527834823756275, guid: 5175d5736886518439bf9a2956a122b4,
     type: 3}
-  probability: 39
+  probability: 30
 --- !u!1 &1476769679
 GameObject:
   m_ObjectHideFlags: 0
@@ -873,6 +873,53 @@ MonoBehaviour:
   - {fileID: 6941765000743290380, guid: c60edd51c065ceb46b345849a03bc106, type: 3}
   terrain: {fileID: 375510951}
   probability: 0.35
+--- !u!1 &1678514209
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1678514211}
+  - component: {fileID: 1678514210}
+  m_Layer: 0
+  m_Name: Rat_Spawner (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1678514210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1678514209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b185edf13a5fed498a6b5b2791164f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  numMaxRats: 30
+  objectToSpawn: {fileID: 5261527834823756275, guid: 5175d5736886518439bf9a2956a122b4,
+    type: 3}
+  probability: 50
+--- !u!4 &1678514211
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1678514209}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 15.94, y: 2, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2070761083
 GameObject:
   m_ObjectHideFlags: 0
@@ -1008,7 +1055,7 @@ PrefabInstance:
     - target: {fileID: 2597503888602334112, guid: b5198eecf032c344197bb270df421af6,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.65
       objectReference: {fileID: 0}
     - target: {fileID: 2597503888602334112, guid: b5198eecf032c344197bb270df421af6,
         type: 3}
@@ -1148,6 +1195,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3197870360157095521, guid: 780a591bd688fc2418c8585a8e00d5f9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4226823322352426634, guid: 780a591bd688fc2418c8585a8e00d5f9,
         type: 3}
       propertyPath: m_RootOrder
@@ -1203,10 +1255,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4226823322352426635, guid: 780a591bd688fc2418c8585a8e00d5f9,
+        type: 3}
+      propertyPath: m_Drag
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4226823322352426635, guid: 780a591bd688fc2418c8585a8e00d5f9,
+        type: 3}
+      propertyPath: m_Mass
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4226823322352426647, guid: 780a591bd688fc2418c8585a8e00d5f9,
         type: 3}
       propertyPath: m_Name
       value: Perro
+      objectReference: {fileID: 0}
+    - target: {fileID: 4753242816402811530, guid: 780a591bd688fc2418c8585a8e00d5f9,
+        type: 3}
+      propertyPath: m_Radius
+      value: 8.1
       objectReference: {fileID: 0}
     - target: {fileID: 6017722023494415772, guid: 780a591bd688fc2418c8585a8e00d5f9,
         type: 3}
@@ -1215,8 +1282,23 @@ PrefabInstance:
       objectReference: {fileID: 1021455439}
     - target: {fileID: 6017722023494415772, guid: 780a591bd688fc2418c8585a8e00d5f9,
         type: 3}
+      propertyPath: threshold
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 6017722023494415772, guid: 780a591bd688fc2418c8585a8e00d5f9,
+        type: 3}
       propertyPath: slowRadius
-      value: 3.5
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6017722023494415772, guid: 780a591bd688fc2418c8585a8e00d5f9,
+        type: 3}
+      propertyPath: avoidDistance
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6017722023494415772, guid: 780a591bd688fc2418c8585a8e00d5f9,
+        type: 3}
+      propertyPath: decayCoefficient
+      value: 180
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 780a591bd688fc2418c8585a8e00d5f9, type: 3}

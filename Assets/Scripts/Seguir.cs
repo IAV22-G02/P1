@@ -139,6 +139,7 @@ namespace UCM.IAV.Movimiento
         private void checkHitRayCast(ref Vector3 directionAcc, Vector3 directionRay, float distance)
         {
             Vector3 from = transform.position;
+            from.y += 1.5f; 
             RaycastHit hit;
             if (Physics.Raycast(from, directionRay, out hit, distance, layer))
             {
@@ -148,14 +149,14 @@ namespace UCM.IAV.Movimiento
                 Vector3 reflectVec = Vector3.Reflect(incomingVec, hit.normal);
 
                 // Draw lines to show the incoming "beam" and the reflection.
-                Debug.DrawLine(transform.position, hit.point, Color.red);
+                Debug.DrawLine(from, hit.point, Color.red);
                 Debug.DrawRay(hit.point, reflectVec, Color.blue);
 
                 Vector3 dir = hit.point + hit.normal * avoidDistance;
                 directionAcc += dir;
             }
             else
-                Debug.DrawRay(transform.position, directionRay * distance, Color.green);
+                Debug.DrawRay(from, directionRay * distance, Color.green);
         }
 
         public Direccion AvoidCollision(ref Direccion direccion)
