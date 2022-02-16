@@ -15,8 +15,6 @@ namespace UCM.IAV.Movimiento
         GameObject target;
         bool isFlauta = false;
 
-
-
         private void Awake()
         {
             rats = new List<GameObject>();

@@ -23,10 +23,16 @@ namespace UCM.IAV.Movimiento
 
         List<GameObject> rats;
 
+        float timeLimit = 4.0f;
+        float timer;
+
+
         int prob;
         public void Start(){
+            currNumRats = 0;
+            timer = 0;
             rats = SensorialManager.instance.getRats();
-
+            rats.Clear();
             prob = (probability / 100) * maxNum;
         }
 
@@ -35,12 +41,23 @@ namespace UCM.IAV.Movimiento
             int auxNum = Random.Range(0, maxNum);
 
             if (auxNum <= prob && currNumRats < numMaxRats) {
-                GameObject rat = Instantiate(objectToSpawn, gameObject.transform.position, Quaternion.identity);
-                rat.transform.parent = gameObject.transform;
-
-                rats.Add(rat);
-                currNumRats++;
+                createRat();
             }
+
+            if (timer >= timeLimit && currNumRats < numMaxRats){
+                createRat();
+                timer = 0;
+            }
+            else timer += Time.deltaTime;
+
+        }
+        private void createRat() {
+            GameObject rat = Instantiate(objectToSpawn, gameObject.transform.position, Quaternion.identity);
+            rat.transform.parent = gameObject.transform;
+
+            rats.Add(rat);
+            currNumRats++;
         }
     }
+
 }

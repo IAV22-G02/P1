@@ -138,7 +138,7 @@ MonoBehaviour:
   prioridad: 1
   objetivo: {fileID: 2597503888602334142, guid: b5198eecf032c344197bb270df421af6,
     type: 3}
-  threshold: 1.5
+  threshold: 2.7
   decayCoefficient: 63.43
   layer:
     serializedVersion: 2
