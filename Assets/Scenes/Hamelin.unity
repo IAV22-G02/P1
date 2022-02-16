@@ -760,7 +760,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1074089648}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 26338607f2e96c2458664d07a0138a17, type: 3}
   m_Name: 
@@ -768,6 +768,8 @@ MonoBehaviour:
   peso: 1
   prioridad: 1
   objetivo: {fileID: 1021455439}
+  threshold: 0
+  decayCoefficient: 0
   layer:
     serializedVersion: 2
     m_Bits: 64
@@ -965,6 +967,11 @@ PrefabInstance:
       objectReference: {fileID: 1021455439}
     - target: {fileID: 4257527475796220550, guid: 780a591bd688fc2418c8585a8e00d5f9,
         type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4257527475796220550, guid: 780a591bd688fc2418c8585a8e00d5f9,
+        type: 3}
       propertyPath: threshold
       value: 40
       objectReference: {fileID: 0}
@@ -1037,6 +1044,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5926255009708011921, guid: 780a591bd688fc2418c8585a8e00d5f9,
+        type: 3}
+      propertyPath: m_Drag
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5926255009708011921, guid: 780a591bd688fc2418c8585a8e00d5f9,
+        type: 3}
+      propertyPath: m_AngularDrag
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5926255009708011921, guid: 780a591bd688fc2418c8585a8e00d5f9,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 80
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 780a591bd688fc2418c8585a8e00d5f9, type: 3}

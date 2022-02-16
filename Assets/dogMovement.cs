@@ -64,6 +64,7 @@ namespace UCM.IAV.Movimiento
             }
 
             direccion.lineal *= acceleration;
+            direccion.angular = 0;
 
             // Podr�}mos meter una rotaci�n autom�tica en la direcci�n del movimiento, si quisi�ramos
             return direccion;

@@ -4,8 +4,10 @@ using UnityEngine;
 
 namespace UCM.IAV.Movimiento
 {
-    public class EvasionObstaculos : ComportamientoAgente
+    public class EvasionObstaculos : Seguir
     {
+        Vector3 collisionPos;
+        Vector3 collisionNormal;
         Ray ray1, ray2, ray3;
         //Capa de Colision
         public LayerMask layer;
@@ -17,19 +19,13 @@ namespace UCM.IAV.Movimiento
         public float lookAhead = 5.0f;
         public float lookSide = 2.0f;
 
-
-        public override void Start()
-        {
-            base.Start();
-        }
-        // Start is called before the first frame update
         public override Direccion GetDirection()
         {
-            Direccion direccion = base.GetDirection();
+            Direccion direccion = new Direccion();
             //Calculo de colision del rayo
             ray1 = new Ray(transform.position, transform.forward);
-            ray2 = new Ray(transform.position, transform.forward*2 + transform.right);
-            ray3 = new Ray(transform.position, transform.forward*2 - transform.right);
+            ray2 = new Ray(transform.position, transform.forward * 2 + transform.right);
+            ray3 = new Ray(transform.position, transform.forward * 2 - transform.right);
             RaycastHit hit1, hit2, hit3;
 
 
@@ -45,7 +41,8 @@ namespace UCM.IAV.Movimiento
                 Debug.DrawLine(transform.position, hit1.point, Color.red);
                 Debug.DrawRay(hit1.point, reflectVec, Color.green);
 
-                direccion.lineal += (transform.position - hit1.normal) * avoidDistance;
+                collisionPos = hit1.point;
+                collisionNormal = hit1.normal;
 
                 isHit = true;
             }
@@ -60,7 +57,8 @@ namespace UCM.IAV.Movimiento
                 Debug.DrawLine(transform.position, hit2.point, Color.red);
                 Debug.DrawRay(hit2.point, reflectVec, Color.green);
 
-                direccion.lineal += (transform.position - hit1.normal) * avoidDistance;
+                collisionPos = hit2.point;
+                collisionNormal = hit2.normal;
 
                 isHit = true;
             }
@@ -75,12 +73,17 @@ namespace UCM.IAV.Movimiento
                 Debug.DrawLine(transform.position, hit3.point, Color.red);
                 Debug.DrawRay(hit3.point, reflectVec, Color.green);
 
-                direccion.lineal += (transform.position - hit1.normal) * avoidDistance;
+                collisionPos = hit3.point;
+                collisionNormal = hit3.normal;
 
                 isHit = true;
             }
+            if(!isHit)
+                return null;
 
-            return direccion;
+            objectivePos = collisionPos + collisionNormal * avoidDistance;
+            return base.GetDirection();
         }
+
     }
 }
