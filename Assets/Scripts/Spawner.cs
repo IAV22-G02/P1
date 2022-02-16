@@ -24,17 +24,14 @@ namespace UCM.IAV.Movimiento
         List<GameObject> rats;
 
         int prob;
-        void Start()
-        {
-
+        public void Start(){
             rats = SensorialManager.instance.getRats();
 
             prob = (probability / 100) * maxNum;
         }
 
         // Update is called once per frame
-        void Update()
-        {
+        void Update() {
             int auxNum = Random.Range(0, maxNum);
             if (auxNum <= prob && currNumRats < numMaxRats)
             {

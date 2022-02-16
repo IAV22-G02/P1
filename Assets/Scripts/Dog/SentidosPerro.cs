@@ -4,49 +4,36 @@ using UnityEngine;
 
 namespace UCM.IAV.Movimiento
 {
-    public class SentidosPerro : Seguir
+    public class SentidosPerro : MonoBehaviour
     {
         public float ratThreshold;
-        int ratsInRange;
-        //List<GameObject> ratsOfFear;
-        bool huyendo = false;
+
+        dogMovement dogMov;
+
+        List<GameObject> rats;
+        public void Start()
+        {
+            dogMov = transform.parent.gameObject.GetComponent<dogMovement>();
+            rats = dogMov.getRats();
+        }
+
 
         void OnTriggerEnter(Collider c)
         {
             if (c.gameObject.GetComponent<RataSenses>() != null)
             {
-                ratsInRange++;
-
-                if (ratsInRange >= ratThreshold)
-                {
-                    this.transform.parent.GetComponent<Seguir>().enabled = false;
-                    huyendo = true;
-                }
-
-                //ratsOfFear.Add(c.gameObject);
+                rats.Add(c.gameObject);
             }
         }
         void OnTriggerExit(Collider c)
         {
             if (c.gameObject.GetComponent<RataSenses>() != null)
             {
-                ratsInRange--;
-
-                if (ratsInRange < ratThreshold)
+                if (rats.Contains(c.gameObject))
                 {
-                    this.transform.parent.GetComponent<Seguir>().enabled = true;
-                    huyendo = false;
+                    rats.Remove(c.gameObject);
                 }
-                //ratsOfFear.Add(c.gameObject);
             }
-        }
-        public override Direccion GetDirection()
-        {
-            Direccion direccion = new Direccion();
-            direccion.lineal = -(Separate());
-            direccion.lineal.Normalize();
-            direccion.lineal *= agente.aceleracionMax;
-            return direccion;
         }
     }
 }
