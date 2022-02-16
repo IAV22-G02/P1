@@ -34,10 +34,12 @@ namespace UCM.IAV.Movimiento
             {
                 if (!audio.isPlaying)audio.Play();
                 SensorialManager.instance.PlayFlauta(true);
+                this.gameObject.GetComponentInChildren<Animator>().enabled = true;
             }
             else { 
                 audio.Pause();
                 SensorialManager.instance.PlayFlauta(false);
+                this.gameObject.GetComponentInChildren<Animator>().enabled = false;
             }
         }
         /// <summary>
