@@ -17,7 +17,8 @@ namespace UCM.IAV.Movimiento
     /// <summary>
     /// Clase para modelar el comportamiento de SEGUIR a otro agente
     /// </summary>
-    public class Seguir : ComportamientoAgente{
+    public class Seguir : ComportamientoAgente
+    {
 
         [SerializeField]
         float threshold;
@@ -46,7 +47,8 @@ namespace UCM.IAV.Movimiento
         /// Obtiene la dirección
         /// </summary>
         /// <returns></returns>
-        public override Direccion GetDirection(){
+        public override Direccion GetDirection()
+        {
 
             Direccion direccion = new Direccion();
             if (!this.enabled) return direccion;
@@ -58,22 +60,23 @@ namespace UCM.IAV.Movimiento
             direccion.orientation = Vector3.SignedAngle(Vector3.forward, new Vector3(direccion.lineal.x, 0.0f, direccion.lineal.z), Vector3.up);
 
             direccion.lineal += Separate();
-            
+
             direccion.lineal *= agente.aceleracionMax;
 
             // Podríamos meter una rotación automática en la dirección del movimiento, si quisiéramos
             return direccion;
         }
 
-        public Vector3 Separate(){
-            Debug.Log("a");
+        public Vector3 Separate()
+        {
             Vector3 direccion = new Vector3();
 
             float minDistance = -1f;
             float strength = 100;
 
             // Para cada entidad
-            foreach (GameObject rat in targets) {
+            foreach (GameObject rat in targets)
+            {
                 // Comprobar que t está cerca
                 Vector3 dirOpossite = transform.position - rat.transform.position;
 
@@ -116,7 +119,8 @@ namespace UCM.IAV.Movimiento
             Vector3 relativePos;
 
 
-            foreach (GameObject target in targets){
+            foreach (GameObject target in targets)
+            {
                 if (target == gameObject) continue;
 
                 Rigidbody targetRb = target.GetComponent<Rigidbody>();
@@ -145,19 +149,21 @@ namespace UCM.IAV.Movimiento
                 }
             }
 
-            if (firstTarget == null) {
+            if (firstTarget == null)
+            {
                 direccion.lineal *= agente.aceleracionMax;
-                return direccion;
+                //    return direccion;
+                //}
+
+                if (firstMinSeparation <= 0 || firstDistance < radiusFactorSeparation * radius)
+                    relativePos = gameObject.transform.position - firstTarget.transform.position;
+                else relativePos = firstRelativePos + firstRelativeVel * shortestTime;
+
+                //relativePos.Normalize();
+
+                direccion.lineal = relativePos;
             }
-
-            if (firstMinSeparation <= 0 || firstDistance < radiusFactorSeparation * radius)
-                relativePos = gameObject.transform.position - firstTarget.transform.position;
-            else relativePos = firstRelativePos + firstRelativeVel * shortestTime;
-
-            relativePos.Normalize();
-
-            direccion.lineal = relativePos;
-            return direccion;
+                return direccion;
         }
     }
 }

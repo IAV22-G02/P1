@@ -89,6 +89,7 @@ namespace UCM.IAV.Movimiento {
         [Tooltip("Cuerpo rú„ido.")]
         private Rigidbody cuerpoRigido;
 
+
         /// <summary>
         /// Al comienzo, se inicialian algunas variables
         /// </summary>

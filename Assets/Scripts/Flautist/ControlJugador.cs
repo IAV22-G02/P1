@@ -20,7 +20,8 @@ namespace UCM.IAV.Movimiento
     {
 
         AudioSource audio;
-        public override void Start(){
+        public override void Awake(){
+            base.Awake();
             audio = GetComponent<AudioSource>();
             SensorialManager.instance.setTarget(this.gameObject);   
             SensorialManager.instance.getRats().Add(this.gameObject);   

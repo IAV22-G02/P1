@@ -3,7 +3,7 @@
    http://www.federicopeinado.com
 
    Este fichero forma parte del material de la asignatura Inteligencia Artificial para Videojuegos.
-   Esta asignatura se imparte en la Facultad de Informática de la Universidad Complutense de Madrid (España).
+   Esta asignatura se imparte en la Facultad de Informï¿½tica de la Universidad Complutense de Madrid (Espaï¿½a).
 
    Autor: Federico Peinado 
    Contacto: email@federicopeinado.com
@@ -38,7 +38,7 @@ namespace UCM.IAV.Movimiento
         private Wander wanderCmp;
 
         /// <summary>
-        /// Al despertar, establecer el agente que harEuso del comportamiento
+        /// Al despertar, establecer el agente que harï¿½Euso del comportamiento
         /// </summary>
         public virtual void Awake()
         {
@@ -50,7 +50,7 @@ namespace UCM.IAV.Movimiento
 
         }
         /// <summary>
-        /// En cada tick, establecer la dirección que corresponde al agente, con peso o prioridad si se están usando
+        /// En cada tick, establecer la direcciï¿½n que corresponde al agente, con peso o prioridad si se estï¿½n usando
         /// </summary>
         public virtual void Update(){
             asignDirection();
@@ -77,7 +77,7 @@ namespace UCM.IAV.Movimiento
         }
 
         /// <summary>
-        /// Asocia la rotación al rango de 360 grados
+        /// Asocia la rotaciï¿½n al rango de 360 grados
         /// </summary>
         /// <param name="rotacion"></param>
         /// <returns></returns>
@@ -95,7 +95,7 @@ namespace UCM.IAV.Movimiento
         }
 
         /// <summary>
-        /// Cambia el valor real de la orientación a un Vector3 
+        /// Cambia el valor real de la orientaciï¿½n a un Vector3 
         /// </summary>
         /// <param name="orientacion"></param>
         /// <returns></returns>

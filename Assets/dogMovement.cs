@@ -56,7 +56,7 @@ namespace UCM.IAV.Movimiento
 
             direccion.lineal *= agente.aceleracionMax;
 
-            // Podríamos meter una rotación automática en la dirección del movimiento, si quisiéramos
+            // Podrú}mos meter una rotación automática en la dirección del movimiento, si quisiéramos
             return direccion;
         }
 
@@ -70,7 +70,7 @@ namespace UCM.IAV.Movimiento
             // Para cada entidad
             foreach (GameObject rat in targets)
             {
-                // Comprobar que t está cerca
+                // Comprobar que t estEcerca
                 Vector3 dirOpossite = transform.position - rat.transform.position;
 
                 float distance = dirOpossite.magnitude;
