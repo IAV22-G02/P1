@@ -15,14 +15,11 @@ Mendoza Reyes, Juan Diego   -   juandiem@ucm.es
 
 ## Resumen
 
-La práctica consiste en implementar un prototipo de una simulación de la leyenda de El Flautista de Hamelín, la cual trata de un personaje capaz de controlar a las ratas con la melodía de su flauta.
-La práctica consta en que el jugador controle el movimiento del flautista por un escenario mientras que el perro y las ratas son controlados por agentes inteligentes previamente creados por código. En principio el perro y el flautista son agentes que ya se encuentran en el pueblo, mientras que las ratas van saliendo del pozo y casas.
-El perro estará persiguiendo constantemente al jugador a donde quiera que él vaya, aunque éste teme a las ratas y aún mas cuando hay demasiadas juntas. 
-El comportamiento de las ratas que se encuentran en el escenario consiste en seguir al jugador siempre y cuando éste toque la flauta ( usando la barra espaciadora), pero son lo suficientemente listas como para no chocar entre ellas y de llegar de manera ordenada a la posición del flautista. Cuando el jugador no esté tocando la flauta, todas las ratas dejarán de seguirle y seguirán un movimiento errático, un merodeo sin destino alguno por el mapa.
+La práctica consiste en implementar un prototipo de una simulación de la leyenda de El Flautista de Hamelín.
+Este prototipo tratará de que un jugador controle el movimiento del flautista por un escenario mientras que el perro y las ratas son controlados por agentes inteligentes previamente creados por código.
+El perro siempre seguirá al jugador a donde quiera que él vaya. Además, las ratas del escenario seguirán al jugador siempre y cuando este toque la flauta, en caso contrario, dejarán de seguirle y seguirán un movimiento propio, aparte, cuando haya suficientes ratas cerca del perro provocará que huya de ellas.
 
 ## Descripción Punto de Partida
-
-# [Commit](https://github.com/IAV22-G02/P1/commit/dd470391ea01ce1da7fded614117dca8c68ad11d) de Punto de Partida 
 
 La escena de Unity consta con una jaula en la que se encuentran tres objetos, todos siendo esferas. El agente flautista (jugador), el agente que huye (perro), y el agente que persigue (ratas). 
 
@@ -34,34 +31,53 @@ La selección de esta dirección se realiza en el componente Agente , el cual lo
 
 ## Descripción de la solución
 
+La solución consta de la implementación de 3 nuevos componentes:
++ Componente Wander, perteneciente al agente rata, encargado de que las ratas se muevan de forma errática mientras el avatar no toque la flauta
++ Componente Seguir(Reformado), perteneciente al agente rata, encargado de que persiga al avatar por el escenario evitando los obstáculos por el camino y manteniendo una distacia entre las otras ratas.
++ Componente DogMovement, perteneciente al perro, responsable de seguir al flautista por el escenario, evitando los obstaculos y ratas intentando mantenerse cerca del avatar
+
 La solución constará de implementar tres nuevos componentes, el componente Wander, encargado de que las ratas se muevan de forma errática mientras no sigan al flautista, el componente Separation encargado de que las ratas se mantengan a una distancia coherente y el componente FollowNDodge, encargado de que los agentes no se choquen contras los obstáculos del escenario.
+
+### Opcionales
+
+La solución también consta de funcionalidades opcionlaes tales como:
++ Generación procedimental de obstáculo en el terreno según el algoritmo de ruido de Perlin
++ 2 generadores de ratas por el escenario
++ Evasión del perro de las ratas y no del avatar cuando haya ratas cerca del perro 
++ Las ratas y el perro evitan obstáculos cuando persiguen al avatar
++ Creado un gestor sensorial para centralizar la percepción de los agentes, así como nuevos componentes sensoriales para los agentes perro y rata
 
 El pseudocódigo de dichos componentes:
 
-### Ratas
+## Seek(Rata y Perro)
 ```python
+
+```
+
+### Wander(Rata)
+```sh
 class KinematicWander :
   character: Static
   maxSpeed: float
  
-  # The maximum rotation speed we’d like, probably should be smaller
-  # than the maximum possible, for a leisurely change in direction.
+  // The maximum rotation speed we’d like, probably should be smaller
+  // than the maximum possible, for a leisurely change in direction.
   maxRotation: float
  
   function getSteering() -> KinematicSteeringOutput:
    result = new KinematicSteeringOutput()
  
-   # Get velocity from the vector form of the orientation.
+   // Get velocity from the vector form of the orientation.
    result.velocity = maxSpeed * character.orientation.asVector()
  
-   # Change our orientation randomly.
+   // Change our orientation randomly.
    result.rotation = randomBinomial() * maxRotation
  
    return result;
 ```
 
-### Perro  (Llegada)
-```python
+###  Arrive (Perro)
+```sh
 class KinematicArrive:
 
 	character: Static
@@ -104,33 +120,8 @@ class KinematicArrive:
  	return result;
 ```
 
-### Huida
-```python
-class KinematicSeek:
-    character: Static
-    target: Static
-
-    maxSpeed: float
-
-    function getSteering() -> KinematicSteeringOutput:
-        result = new KinematicSteeringOutput()
-
-        # Get the direction away from the target.
-        steering.velocity = character.position - target.position
-
-        # The velocity is along this direction, at full speed.
-        result.velocity.normalize()
-        result.velocity *= maxSpeed
-
-        # Face in the direction we want to move.
-        character.orientation = newOrientation(character.orientation, result.velocity)
-
-        result.rotation = 0
-        return result;
-```
-
-### CollisionAvoidance
-```python
+### CollisionAvoidance (Rata)
+```sh
 class CollisionAvoidance:
  character: Kinematic
  maxAcceleration: float
@@ -203,8 +194,8 @@ class CollisionAvoidance:
  return result
 ```
 
-### Separate
-```python
+### Separate (Rata y Perro)
+```sh
 class Separation:
  character: Kinematic
  maxAcceleration: float
@@ -241,8 +232,8 @@ class Separation:
  return result
 ```
 
-### Wall Avoidance
-```python
+### Wall Avoidance (Rata y Perro)
+```sh
 class ObstacleAvoidance extends Seek:
  detector: CollisionDetector
 
@@ -274,10 +265,3 @@ class ObstacleAvoidance extends Seek:
  target = collision.position + collision.normal * avoidDistance
  return Seek.getSteering()
 ```
-
-#Estructura de Clases
-![text](https://github.com/IAV22-G02/P1/blob/main/UML_Hamelin.png)
-
-# Referencias Usadas:
-+ AI for GAMES Third Edition, Ian Millintong
-+ Unity 5.x Game AI Programming Cookbook, Jorge Palacios
