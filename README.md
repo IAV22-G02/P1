@@ -15,11 +15,14 @@ Mendoza Reyes, Juan Diego   -   juandiem@ucm.es
 
 ## Resumen
 
-La práctica consiste en implementar un prototipo de una simulación de la leyenda de El Flautista de Hamelín.
-Este prototipo tratará de que un jugador controle el movimiento del flautista por un escenario mientras que el perro y las ratas son controlados por agentes inteligentes previamente creados por código.
-El perro siempre seguirá al jugador a donde quiera que él vaya. Además, las ratas del escenario seguirán al jugador siempre y cuando este toque la flauta, en caso contrario, dejarán de seguirle y seguirán un movimiento propio, aparte, cuando haya suficientes ratas cerca del perro provocará que huya de ellas.
+La práctica consiste en implementar un prototipo de una simulación de la leyenda de El Flautista de Hamelín, la cual trata de un personaje capaz de controlar a las ratas con la melodía de su flauta.
+La práctica consta en que el jugador controle el movimiento del flautista por un escenario mientras que el perro y las ratas son controlados por agentes inteligentes previamente creados por código. En principio el perro y el flautista son agentes que ya se encuentran en el pueblo, mientras que las ratas van saliendo del pozo y casas.
+El perro estará persiguiendo constantemente al jugador a donde quiera que él vaya, aunque éste teme a las ratas y aún mas cuando hay demasiadas juntas. 
+El comportamiento de las ratas que se encuentran en el escenario consiste en seguir al jugador siempre y cuando éste toque la flauta ( usando la barra espaciadora), pero son lo suficientemente listas como para no chocar entre ellas y de llegar de manera ordenada a la posición del flautista. Cuando el jugador no esté tocando la flauta, todas las ratas dejarán de seguirle y seguirán un movimiento errático, un merodeo sin destino alguno por el mapa.
 
 ## Descripción Punto de Partida
+
+# [Commit](https://github.com/IAV22-G02/P1/commit/dd470391ea01ce1da7fded614117dca8c68ad11d) de Punto de Partida 
 
 La escena de Unity consta con una jaula en la que se encuentran tres objetos, todos siendo esferas. El agente flautista (jugador), el agente que huye (perro), y el agente que persigue (ratas). 
 
@@ -36,29 +39,29 @@ La solución constará de implementar tres nuevos componentes, el componente Wan
 El pseudocódigo de dichos componentes:
 
 ### Ratas
-```sh
+```python
 class KinematicWander :
   character: Static
   maxSpeed: float
  
-  // The maximum rotation speed we’d like, probably should be smaller
-  // than the maximum possible, for a leisurely change in direction.
+  # The maximum rotation speed we’d like, probably should be smaller
+  # than the maximum possible, for a leisurely change in direction.
   maxRotation: float
  
   function getSteering() -> KinematicSteeringOutput:
    result = new KinematicSteeringOutput()
  
-   // Get velocity from the vector form of the orientation.
+   # Get velocity from the vector form of the orientation.
    result.velocity = maxSpeed * character.orientation.asVector()
  
-   // Change our orientation randomly.
+   # Change our orientation randomly.
    result.rotation = randomBinomial() * maxRotation
  
    return result;
 ```
 
 ### Perro  (Llegada)
-```sh
+```python
 class KinematicArrive:
 
 	character: Static
@@ -102,7 +105,7 @@ class KinematicArrive:
 ```
 
 ### Huida
-```sh
+```python
 class KinematicSeek:
     character: Static
     target: Static
@@ -127,7 +130,7 @@ class KinematicSeek:
 ```
 
 ### CollisionAvoidance
-```sh
+```python
 class CollisionAvoidance:
  character: Kinematic
  maxAcceleration: float
@@ -201,7 +204,7 @@ class CollisionAvoidance:
 ```
 
 ### Separate
-```sh
+```python
 class Separation:
  character: Kinematic
  maxAcceleration: float
@@ -239,7 +242,7 @@ class Separation:
 ```
 
 ### Wall Avoidance
-```sh
+```python
 class ObstacleAvoidance extends Seek:
  detector: CollisionDetector
 
@@ -271,3 +274,10 @@ class ObstacleAvoidance extends Seek:
  target = collision.position + collision.normal * avoidDistance
  return Seek.getSteering()
 ```
+
+#Estructura de Clases
+![text](https://github.com/IAV22-G02/P1/blob/main/UML_Hamelin.png)
+
+# Referencias Usadas:
++ AI for GAMES Third Edition, Ian Millintong
++ Unity 5.x Game AI Programming Cookbook, Jorge Palacios
