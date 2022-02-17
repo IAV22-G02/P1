@@ -54,7 +54,28 @@ El pseudocódigo de dichos componentes:
 
 ## Seek(Rata y Perro)
 ```python
+class KinematicSeek:
+ character: Static
+ target: Static
 
+ maxSpeed: float
+
+ function getSteering() -> KinematicSteeringOutput:
+ result = new KinematicSteeringOutput()
+ # Get the direction to the target.
+ result.velocity = target.position - character.position
+
+ # The velocity is along this direction, at full speed.
+ result.velocity.normalize()
+ result.velocity *= maxSpeed
+
+ # Face in the direction we want to move.
+ character.orientation = newOrientation(
+ character.orientation,
+ result.velocity)
+
+ result.rotation = 0
+ return result
 ```
 
 ### Wander(Rata)
