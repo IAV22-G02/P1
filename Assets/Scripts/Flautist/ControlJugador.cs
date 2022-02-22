@@ -18,13 +18,18 @@ namespace UCM.IAV.Movimiento
     /// </summary>
     public class ControlJugador: ComportamientoAgente
     {
-
+        
         AudioSource audio;
+
+        public virtual void Start()
+        {
+            SensorialManager.instance.setTarget(this.gameObject);   
+            SensorialManager.instance.getRats().Add(this.gameObject);   
+
+        }
         public override void Awake(){
             base.Awake();
             audio = GetComponent<AudioSource>();
-            SensorialManager.instance.setTarget(this.gameObject);   
-            SensorialManager.instance.getRats().Add(this.gameObject);   
         }
         public override void Update()
         {
