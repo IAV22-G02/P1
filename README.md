@@ -1,7 +1,7 @@
 # Documentación Práctica 1
 ___________________________________________________________________________
 
-#EVALUAR DOCUMENTACIÓN Y DEMO. HAN SIDO MEJORADAS, AÑADIENDO NUEVO CONTENIDO QUE SE PEDÍA EN LA PRÁCTICA. 
+# EVALUAR DOCUMENTACIÓN Y DEMO. HAN SIDO MEJORADAS, AÑADIENDO NUEVO CONTENIDO QUE SE PEDÍA EN LA PRÁCTICA. 
 # Video de pruebas [aquí](https://youtu.be/ztK_XIu5nJk)
 
 ## Autores
